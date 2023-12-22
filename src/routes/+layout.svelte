@@ -1,6 +1,7 @@
 <script lang="ts">
 	import '../app.postcss';
 	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
+	import { LightSwitch } from '@skeletonlabs/skeleton';
 </script>
 
 <!-- App Shell -->
@@ -9,32 +10,26 @@
 		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<strong class="text-xl uppercase">PollCat</strong>
+				<strong class="text-xl">{"<PollCat />"}</strong>
 			</svelte:fragment>
-			<svelte:fragment slot="trail">		
+			<svelte:fragment slot="trail">
+				<!-- Link Buttons -->
 				<a
 					class="btn btn-sm variant-ghost-surface"
-					href="https://www.ibis-management.com/"
+					href="https://github.com/GuentonBrooks/pollcat-sveltekit-app"
 					target="_blank"
-					rel="noreferrer"
-				>
-					IBIS
-				</a>
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://github.com/skeletonlabs/skeleton"
-					target="_blank"
-					rel="noreferrer"
-				>
+					rel="noreferrer">
 					GitHub
 				</a>
 				<a
 					class="btn btn-sm variant-ghost-surface"
 					href="/admin"
-					rel="noreferrer"
-				>
+					rel="noreferrer">
 					Admin
 				</a>
+
+				<!-- Light/Dark Switch -->
+				<LightSwitch />
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>

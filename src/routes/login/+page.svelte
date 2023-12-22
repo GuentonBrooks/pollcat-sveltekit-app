@@ -1,11 +1,10 @@
 <script>
-	import PollCatSvgLarge from "../components/images/PollCatSvgLarge.svelte";
 </script>
 
 <div class="container h-full mx-auto flex justify-center items-center">
 	<div class="space-y-10 text-center flex flex-col items-center">
 		<!-- Animated Logo -->
-		<PollCatSvgLarge />
+		<!-- <PollCatSvgLarge /> -->
 
 		<!-- Get Started Button -->
 		<div class="flex justify-center space-x-2">
