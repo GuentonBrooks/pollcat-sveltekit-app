@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { authForgotPage, authLoginPage, authSignupPage, gotoHomePage } from "$lib/navigate";
+	import { authForgotPage, authLoginPage, gotoAdminPage } from "$lib/navigate";
 
 	import FlatAlert from "../text/FlatAlert.svelte";
 	import LoginButton from "../buttons/LoginButton.svelte";
 
-  // import isValidLoginFormat from "../../services/auth/isValidLoginFormat";
-	// import loginAsync from "../../services/auth/loginAsync";
 	import TextInput from "../inputs/TextInput.svelte";
 	import { onMount } from "svelte";
 	import PasswordInput from "../inputs/PasswordInput.svelte";
 	import FormHeader from "../text/FormHeader.svelte";
 	import FormFooter from "../text/FormFooter.svelte";
+	import { firebaseAdminSignIn } from "$lib/firebase/auth";
+	import isValidLoginFormat from "../../services/auth/isValidLoginFormat";
 
   let email = '';
   let password = '';
@@ -22,17 +22,9 @@
 
   const login = () => {
     const loginFormat = { email, password };
-    // if (!isValidLoginFormat(loginFormat)) return;
+    if (!isValidLoginFormat(loginFormat)) return;
 
-    // loginAsync(loginFormat).then((response) => {
-    //   if (!response) return;
-    //   const user = response.user;
-
-    //   if (!user.confirmed) return gotoPasswordResetPage();
-    //   if (user.role.name === "CLIENT") return gotoUserPageById(user.id);
-      
-      gotoHomePage();
-    // })
+    firebaseAdminSignIn(email, password).then(() => gotoAdminPage()).catch(() => null);
   };
 </script>
 

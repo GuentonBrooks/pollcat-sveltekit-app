@@ -15,7 +15,7 @@
 	}));
 </script>
 
-<div class="h-full grid grid-cols-1 gap-20 justify-items-center content-center">
+<div class="h-full grid grid-cols-1 my-5 gap-20 justify-items-center content-center">
 	<Title />
 	<PollCatSvgLarge />
 

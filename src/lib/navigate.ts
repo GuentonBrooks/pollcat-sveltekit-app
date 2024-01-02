@@ -6,6 +6,7 @@ export const authAdminLoginPage = '/auth/admin';
 export const authForgotPage = '/auth/forgot';
 export const authSignupPage = '/auth/signup';
 export const homePage = '/home';
+export const adminPage = '/admin';
 
 /**
  * Navigate to the specified Page by its uri string.
@@ -25,3 +26,6 @@ export const gotoAdminLoginPage = () => goto(authAdminLoginPage);
 
 /** Navigate to the Home Page. */
 export const gotoHomePage = () => goto(homePage);
+
+/** Navigate to the Admin Page. */
+export const gotoAdminPage = () => goto(adminPage);

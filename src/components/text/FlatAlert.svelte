@@ -1,4 +1,6 @@
 <script>
+  import { fade } from 'svelte/transition';
+
   import IconClose from "~icons/mdi/close";
   import IconCloseOctagon from "~icons/mdi/close-octagon";
   import IconInformation from "~icons/mdi/information";
@@ -22,7 +24,7 @@
 </script>
 
 {#if type === "info" && text}
-<aside class="alert variant-soft m-3">
+<aside class="alert variant-soft m-3" transition:fade|local={{ duration: 200 }}>
   <IconInformation />
   
   <div class="alert-message">{text}</div>
@@ -35,7 +37,7 @@
 </aside>
 
 {:else if type === "success" && text}
-<aside class="alert variant-soft-success m-3">
+<aside class="alert variant-soft-success m-3" transition:fade|local={{ duration: 200 }}>
   <IconCheckDecagram />
   
   <div class="alert-message">{text}</div>
@@ -48,7 +50,7 @@
 </aside>
 
 {:else if type === "warning" && text}
-<aside class="alert variant-soft-warning m-3">
+<aside class="alert variant-soft-warning m-3" transition:fade|local={{ duration: 200 }}>
   <IconAlert />
   
   <div class="alert-message">{text}</div>
@@ -61,7 +63,7 @@
 </aside>
 
 {:else if type === "error" && text}
-<aside class="alert variant-soft-error m-3">
+<aside class="alert variant-soft-error place-self-stretch m-3" transition:fade|local={{ duration: 200 }}>
   <IconCloseOctagon />
   
   <div class="alert-message">{text}</div>
@@ -74,7 +76,7 @@
 </aside>
 
 {:else if text}
-<aside class="alert variant-ghost m-3">
+<aside class="alert variant-ghost m-3" transition:fade|local={{ duration: 200 }}>
   <IconChatQuestion />
   
   <div class="alert-message">{text}</div>

@@ -1,9 +1,18 @@
 /** AUTH - Format for Authenticated Users */
-export type AuthUserFormat = {
+export type FirebaseUserShortInfoFormat = {
 	uid: string;
 	email: string;
-	displayName: string;
-	photoURL: string;
+	firstName: string;
+	lastName: string;
+};
+
+/** AUTH - Format for Users in Firebase Real-Time Database */
+export type FirebaseDatabaseUserFormat = {
+	uid: string;
+	email: string;
+	firstName: string;
+	lastName: string;
+	isAdmin: boolean;
 };
 
 /** AUTH - Format for signing up users */
