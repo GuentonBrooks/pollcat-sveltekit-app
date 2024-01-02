@@ -3,46 +3,31 @@ import isAscii from 'validator/lib/isAscii';
 import isEmail from 'validator/lib/isEmail';
 
 import { alertTextState, alertTypeState } from '../../store/alert';
-import type { LoginFormat } from '../../types/auth';
 
 /**
  * Validate the login format and parameters
  *
- * @param loginFormat
+ * @param email
  */
-export default (loginFormat: LoginFormat) => {
+export default (email: string) => {
 	// Check if the email has a value
-	if (isEmpty(loginFormat.email)) {
+	if (isEmpty(email)) {
 		alertTypeState.set('warning');
 		alertTextState.set('Please enter an Email');
 		return false;
 	}
 
-	// Check if the password has a value
-	if (isEmpty(loginFormat.password)) {
-		alertTypeState.set('warning');
-		alertTextState.set('Please enter a password');
-		return false;
-	}
-
 	// Check if the email has forbidden characters
-	if (!isAscii(loginFormat.email)) {
+	if (!isAscii(email)) {
 		alertTypeState.set('warning');
 		alertTextState.set('Your Email contains forbidden characters');
 		return false;
 	}
 
 	// Check if the email is an actual email
-	if (!isEmail(loginFormat.email)) {
+	if (!isEmail(email)) {
 		alertTypeState.set('warning');
 		alertTextState.set('Your Email does not appear to be a valid email address');
-		return false;
-	}
-
-	// Check if the password has forbidden characters
-	if (!isAscii(loginFormat.password)) {
-		alertTypeState.set('warning');
-		alertTextState.set('Your password contains forbidden characters');
 		return false;
 	}
 

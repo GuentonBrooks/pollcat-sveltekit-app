@@ -1,8 +1,0 @@
-<script>
-	import LoginForm from "../../components/forms/LoginForm.svelte";
-
-</script>
-
-<div class="h-full flex justify-center items-center">
-	<LoginForm />
-</div>

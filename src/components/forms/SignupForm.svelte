@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { gotoHomePage } from "$lib/navigate";
+	import { authLoginPage, gotoHomePage } from "$lib/navigate";
 
 	import FlatAlert from "../text/FlatAlert.svelte";
 	import SignupButton from "../buttons/SignupButton.svelte";
@@ -11,6 +11,7 @@
 	import FormHeader from "../text/FormHeader.svelte";
 	import FormFooter from "../text/FormFooter.svelte";
 	import isValidSignupFormat from "../../services/auth/isValidSignupFormat";
+	import { firebasePasswordSignUp } from "$lib/firebase/auth";
 
   let email = '';
   let password = '';
@@ -26,21 +27,13 @@
     const signupFormat = { email, password, passwordConfirm };
     if (!isValidSignupFormat(signupFormat)) return;
 
-    // loginAsync(loginFormat).then((response) => {
-    //   if (!response) return;
-    //   const user = response.user;
-
-    //   if (!user.confirmed) return gotoPasswordResetPage();
-    //   if (user.role.name === "CLIENT") return gotoUserPageById(user.id);
-      
-      gotoHomePage();
-    // })
+    firebasePasswordSignUp(email, password).then(() => gotoHomePage().catch(() => null));
   };
 </script>
 
 
 <div class="grid grid-cols-1 gap-8 mb-20 w-88 justify-items-center">
-  <div class="mb-10">
+  <div class="my-10">
     <FormHeader label="Create a Kitten Account" subLabel="Sign Up to get started" />
   </div>
 
@@ -65,6 +58,6 @@
   </div>
 
   <div class="mt-8">
-    <FormFooter label="No Kitten Account?" subLabel="Sign Up" href="/auth/signup"/>
+    <FormFooter label="Already a Cat?" subLabel="Log In" href={authLoginPage} />
   </div>
 </div>

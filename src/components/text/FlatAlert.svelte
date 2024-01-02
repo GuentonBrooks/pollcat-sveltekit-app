@@ -22,68 +22,68 @@
 </script>
 
 {#if type === "info" && text}
-<div class="flex-1 flex m-5">
-  <div class="alert alert-info flex-1 flex justify-between">
-    <IconInformation />
-    
-    <span>{text}</span>
-    
+<aside class="alert variant-soft m-3">
+  <IconInformation />
+  
+  <div class="alert-message">{text}</div>
+  
+  <div class="alert-actions">
     <button class="btn btn-sm btn-square btn-ghost" on:click={dismissAlert}>
       <IconClose />
     </button>
   </div>
-</div>
+</aside>
 
 {:else if type === "success" && text}
-<div class="flex-1 flex m-5">
-  <div class="alert alert-success flex-1 flex justify-between">
-    <IconCheckDecagram />
-    
-    <span>{text}</span>
-    
+<aside class="alert variant-soft-success m-3">
+  <IconCheckDecagram />
+  
+  <div class="alert-message">{text}</div>
+  
+  <div class="alert-actions">
     <button class="btn btn-sm btn-square btn-ghost" on:click={dismissAlert}>
       <IconClose />
     </button>
   </div>
-</div>
+</aside>
 
 {:else if type === "warning" && text}
-<div class="flex-1 flex m-5">
-  <div class="alert alert-warning flex-1 flex justify-between">
-    <IconAlert />
-    
-    <span>{text}</span>
-    
+<aside class="alert variant-soft-warning m-3">
+  <IconAlert />
+  
+  <div class="alert-message">{text}</div>
+  
+  <div class="alert-actions">
     <button class="btn btn-sm btn-square btn-ghost" on:click={dismissAlert}>
       <IconClose />
     </button>
   </div>
-</div>
+</aside>
 
 {:else if type === "error" && text}
-<div class="flex-1 flex m-5">
-  <div class="alert alert-error flex-1 flex justify-between">
-    <IconCloseOctagon />
-    
-    <span>{text}</span>
-    
+<aside class="alert variant-soft-error m-3">
+  <IconCloseOctagon />
+  
+  <div class="alert-message">{text}</div>
+  
+  <div class="alert-actions">
     <button class="btn btn-sm btn-square btn-ghost" on:click={dismissAlert}>
       <IconClose />
     </button>
   </div>
-</div>
+</aside>
 
 {:else if text}
-<div class="flex-1 flex m-5">
-  <div class="alert flex-1 flex justify-between">
-    <IconChatQuestion />
-    
-    <span>{text}</span>
-    
+<aside class="alert variant-ghost m-3">
+  <IconChatQuestion />
+  
+  <div class="alert-message">{text}</div>
+  
+  <div class="alert-actions">
     <button class="btn btn-sm btn-square btn-ghost" on:click={dismissAlert}>
       <IconClose />
     </button>
   </div>
-</div>
+</aside>
 
 {/if}

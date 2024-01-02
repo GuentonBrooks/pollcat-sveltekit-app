@@ -1,20 +1,29 @@
 <script>
+	import { onMount } from "svelte";
+	import { authLoginPage, gotoHomePage } from "$lib/navigate";
+	import { auth, setFirebaseUserState } from "$lib/firebase/auth";
+	import { onAuthStateChanged } from "firebase/auth";
+	
 	import PollCatSvgLarge from "../components/images/PollCatSvgLarge.svelte";
+	import Title from "../components/text/Title.svelte";
+
+	onMount(() => onAuthStateChanged(auth, (user) => {
+		if (user) {
+			setFirebaseUserState();
+			gotoHomePage();
+		}
+	}));
 </script>
 
-<div class="container h-full mx-auto flex justify-center items-center">
-	<div class="space-y-10 text-center flex flex-col items-center">
-		<!-- Animated Logo -->
-		<PollCatSvgLarge />
+<div class="h-full grid grid-cols-1 gap-20 justify-items-center content-center">
+	<Title />
+	<PollCatSvgLarge />
 
-		<!-- Get Started Button -->
-		<div class="flex justify-center space-x-2">
-			<a
-				class="btn variant-filled-primary"
-				href="/login"
-				rel="noreferrer">
-				Get Started
-			</a>
-		</div>
-	</div>
+	<!-- Get Started Button -->
+	<a
+		class="btn variant-filled-primary"
+		href={authLoginPage}
+		rel="noreferrer">
+		Get Started
+	</a>
 </div>

@@ -1,11 +1,47 @@
 <script>
-  import { AppShell } from '@skeletonlabs/skeleton';
+  import { AppShell, AppBar, LightSwitch } from '@skeletonlabs/skeleton';
   import GuentonLogo from '../../components/images/GuentonLogo.svelte';
+	import PollCatSvgLarge from '../../components/images/PollCatSvgLarge.svelte';
+	import { authAdminLoginPage } from '$lib/navigate';
 </script>
 
 <AppShell>
-	<slot />
-	<svelte:fragment slot="footer">
+  <svelte:fragment slot="header">
+		<!-- App Bar -->
+		<AppBar>
+			<svelte:fragment slot="lead">
+				<strong class="text-xl">{"<PollCat />"}</strong>
+			</svelte:fragment>
+			<svelte:fragment slot="trail">
+				<!-- Link Buttons -->
+				<a
+					class="btn btn-sm variant-ghost-surface"
+					href="https://github.com/GuentonBrooks/pollcat-sveltekit-app"
+					target="_blank"
+					rel="noreferrer">
+					GitHub
+				</a>
+				<a
+					class="btn btn-sm variant-ghost-surface"
+					href={authAdminLoginPage}
+					rel="noreferrer">
+					Admin
+				</a>
+
+				<!-- Light/Dark Switch -->
+				<LightSwitch />
+			</svelte:fragment>
+		</AppBar>
+	</svelte:fragment>
+
+  <div class="h-full grid grid-cols-1 md:grid-cols-2">
+    <div class="hidden md:grid grid-cols-1 justify-items-center content-center">
+      <PollCatSvgLarge />
+    </div>
+    <slot />
+  </div>
+	
+  <svelte:fragment slot="footer">
     <div class="flex justify-end ">
       <div class="w-20">
         <GuentonLogo />
