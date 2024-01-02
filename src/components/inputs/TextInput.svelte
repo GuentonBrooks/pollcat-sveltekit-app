@@ -12,7 +12,7 @@
 </script>
 
 <div class="flex-1 flex-col">
-  <p class="text-sm">{label}</p>
+  <p class="text-sm ml-3">{label}</p>
   <input 
     class="input input-bordered text-onSurface w-full max-w-xs" 
     type="text" 

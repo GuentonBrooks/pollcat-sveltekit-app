@@ -9,6 +9,7 @@
 	import TextInput from "../inputs/TextInput.svelte";
 	import { onMount } from "svelte";
 	import PasswordInput from "../inputs/PasswordInput.svelte";
+	import FormHeader from "../text/FormHeader.svelte";
 
   let username = '';
   let password = '';
@@ -36,6 +37,10 @@
 
 
 <div class="grid grid-cols-1 gap-10 mb-20 w-72">
+  <div class="mb-10">
+    <FormHeader label="Hi There Cat!" subLabel="Please log in to continue" />
+  </div>
+
   <TextInput label="Username/Email" bind:value={username} bind:ref={usernameRef} on:enter={() => passwordRef.focus()} />
   <div>
     <PasswordInput label="Password" bind:value={password} bind:ref={passwordRef} on:enter={() => login()} />
@@ -44,6 +49,7 @@
       <a class="link link-hover" href="/auth/forgot">Forgot Password?</a>
     </p>
   </div>
+
   <div class="text-center mt-8">
     <LoginButton on:click={login} />
   </div>
