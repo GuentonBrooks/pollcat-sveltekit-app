@@ -1,17 +1,16 @@
 <script lang="ts">
 	import { gotoHomePage } from "$lib/navigate";
 
-	// import FlatAlert from "../containers/FlatAlert.svelte";
-	import LoginButton from "../buttons/LoginButton.svelte";
+	import FlatAlert from "../text/FlatAlert.svelte";
+	import SignupButton from "../buttons/SignupButton.svelte";
 
-  // import isValidLoginFormat from "../../services/auth/isValidLoginFormat";
 	// import loginAsync from "../../services/auth/loginAsync";
 	import TextInput from "../inputs/TextInput.svelte";
 	import { onMount } from "svelte";
 	import PasswordInput from "../inputs/PasswordInput.svelte";
 	import FormHeader from "../text/FormHeader.svelte";
 	import FormFooter from "../text/FormFooter.svelte";
-	import SignupButton from "../buttons/SignupButton.svelte";
+	import isValidSignupFormat from "../../services/auth/isValidSignupFormat";
 
   let email = '';
   let password = '';
@@ -24,8 +23,8 @@
   onMount(() => emailRef.focus())
 
   const signup = () => {
-    const loginFormat = { identifier: email, password };
-    // if (!isValidLoginFormat(loginFormat)) return;
+    const signupFormat = { email, password, passwordConfirm };
+    if (!isValidSignupFormat(signupFormat)) return;
 
     // loginAsync(loginFormat).then((response) => {
     //   if (!response) return;
@@ -59,6 +58,10 @@
 
   <div class="text-center mt-8">
     <SignupButton on:click={signup} />
+  </div>
+
+  <div class="flex md:ml-20 justify-center">
+    <FlatAlert />
   </div>
 
   <div class="mt-8">

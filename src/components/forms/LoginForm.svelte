@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { gotoHomePage } from "$lib/navigate";
 
-	// import FlatAlert from "../containers/FlatAlert.svelte";
+	import FlatAlert from "../text/FlatAlert.svelte";
 	import LoginButton from "../buttons/LoginButton.svelte";
 
   // import isValidLoginFormat from "../../services/auth/isValidLoginFormat";
@@ -56,6 +56,10 @@
 
   <div class="text-center mt-8">
     <LoginButton on:click={login} />
+  </div>
+
+  <div class="flex md:ml-20 justify-center">
+    <FlatAlert />
   </div>
 
   <div class="mt-8">
