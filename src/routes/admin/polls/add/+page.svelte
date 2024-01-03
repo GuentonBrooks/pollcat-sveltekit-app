@@ -1,30 +1,48 @@
 <script lang="ts">
-	import SurfaceContainer from './../../../../components/containers/SurfaceContainer.svelte';
 	import FormHeader from './../../../../components/text/FormHeader.svelte';
-	import SelectPollType from '../../../../components/inputs/SelectPollType.svelte';
-	import PollTypeDescription from '../../../../components/text/PollTypeDescription.svelte';
 	import SurfaceHeader from '../../../../components/text/SurfaceHeader.svelte';
+	import SurfaceContainer from './../../../../components/containers/SurfaceContainer.svelte';
 	import SurfaceTextInput from '../../../../components/inputs/SurfaceTextInput.svelte';
+	import SurfaceDateTimeInput from '../../../../components/inputs/SurfaceDateTimeInput.svelte';
+	import SelectPollType from '../../../../components/inputs/SelectPollType.svelte';
 	import SelectPollDefaultAnswerType from '../../../../components/inputs/SelectPollDefaultAnswerType.svelte';
+	import PollTypeDescription from '../../../../components/text/PollTypeDescription.svelte';
 	import PollDefaultAnswerTypeDescription from '../../../../components/text/PollDefaultAnswerTypeDescription.svelte';
+
 	import CancelButton from '../../../../components/buttons/CancelButton.svelte';
 	import SubmitButton from '../../../../components/buttons/SubmitButton.svelte';
 
-	import type { PollDefaultAnswerType, PollType } from '../../../../types/poll';
-	import SurfaceDateTimeInput from '../../../../components/inputs/SurfaceDateTimeInput.svelte';
+	import type { NewPollFormat, PollDefaultAnswerType, PollType } from '../../../../types/poll';
+	import isValidNewPollFormat from '../../../../services/poll/isValidNewPollFormat';
+	import { createNewPollAsync } from '$lib/firebase/polls';
+	import FlatAlert from '../../../../components/text/FlatAlert.svelte';
+	import navigate, { adminPollsPage } from '$lib/navigate';
 
-  let pollName = '';
-  let pollNameRef: HTMLInputElement;
+  let name = '';
+  let type: PollType = "vote";
+  let defaultAnswerType: PollDefaultAnswerType = "employee";
+  let openingDateTime = '';
+  let closingDateTime = '';
+  
+  let nameRef: HTMLInputElement;
+  let openingDateTimeRef: HTMLInputElement;
+  let closingDateTimeRef: HTMLInputElement;
 
-  let pollType: PollType = "vote";
-  let pollDefaultAnswerType: PollDefaultAnswerType = "employee";
-  let openingDate = '';
-  let openingDateRef: HTMLInputElement;
-  let closingDate = '';
-  let closingDateRef: HTMLInputElement;
+  const sumbitNewPoll = () => {
+    const newPoll: NewPollFormat = {
+      name,
+      type,
+      defaultAnswerType,
+      openingDateTime,
+      closingDateTime
+    }
+    if (!isValidNewPollFormat(newPoll)) return;
+
+    createNewPollAsync(newPoll).then((pollId) => console.log(pollId));
+  }
 </script>
 
-<div class="grid grid-cols-10 my-10 mx-5 gap-10">
+<div class="grid grid-cols-10 m-5 mt-10 gap-10">
   <div class="col-span-10">
     <FormHeader label="Create New Poll" />
   </div>
@@ -33,7 +51,7 @@
   <div class="col-span-10 md:col-span-8 md:col-start-2 lg:col-span-6 lg:col-start-3 xl:col-span-4 xl:col-start-4">
     <SurfaceContainer>
       <SurfaceHeader label="Enter Poll Name" />
-      <SurfaceTextInput bind:value={pollName} bind:ref={pollNameRef} placeholder="Poll Name" />
+      <SurfaceTextInput bind:value={name} bind:ref={nameRef} placeholder="Poll Name" />
     </SurfaceContainer>
   </div>
 
@@ -41,7 +59,7 @@
   <div class="col-span-10 md:col-span-5 xl:col-span-5">
     <SurfaceContainer>
       <SurfaceHeader label="Select Poll Type" />
-      <SelectPollType value={pollType} />
+      <SelectPollType value={type} />
     </SurfaceContainer>
   </div>
   <div class="hidden md:block md:col-span-5">
@@ -55,7 +73,7 @@
   <div class="col-span-10 md:col-span-5 xl:col-span-5">
     <SurfaceContainer>
       <SurfaceHeader label="Select Default Answer Model" />
-      <SelectPollDefaultAnswerType value={pollDefaultAnswerType} />
+      <SelectPollDefaultAnswerType value={defaultAnswerType} />
     </SurfaceContainer>
   </div>
   <div class="hidden md:block md:col-span-5">
@@ -69,18 +87,23 @@
   <div class="col-span-10 md:col-span-5">
     <SurfaceContainer>
       <SurfaceHeader label="Select Opening Date" />
-      <SurfaceDateTimeInput bind:value={openingDate} bind:ref={openingDateRef} placeholder="Opening Date" />
+      <SurfaceDateTimeInput bind:value={openingDateTime} bind:ref={openingDateTimeRef} placeholder="Opening Date" />
     </SurfaceContainer>
   </div>
   <div class="col-span-10 md:col-span-5">
     <SurfaceContainer>
       <SurfaceHeader label="Select Closing Date" />
-      <SurfaceDateTimeInput bind:value={closingDate} bind:ref={closingDateRef} placeholder="Closing Date" />
+      <SurfaceDateTimeInput bind:value={closingDateTime} bind:ref={closingDateTimeRef} placeholder="Closing Date" />
     </SurfaceContainer>
   </div>
 
   <div class="col-span-10 place-self-stretch grid grid-cols-2 place-items-center">
-    <CancelButton />
-    <SubmitButton />
+    <CancelButton on:click={() => navigate(adminPollsPage)}/>
+    <SubmitButton on:click={sumbitNewPoll} />
   </div>
+  
+  <div class="col-span-10">
+    <FlatAlert />
+  </div>
+    
 </div>

@@ -9,6 +9,8 @@ export const homePage = '/home';
 export const adminPage = '/admin';
 export const adminPollsPage = '/admin/polls';
 export const adminPollsAddPage = '/admin/polls/add';
+export const adminQuestionsPage = '/admin/questions';
+export const adminQuestionsAddPage = '/admin/questions/add';
 export const adminRankingsPage = '/admin/rankings';
 export const adminUsersPage = '/admin/users';
 

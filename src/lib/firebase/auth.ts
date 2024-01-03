@@ -62,7 +62,7 @@ export const firebaseAdminSignIn = (email: string, password: string) =>
 		.then(() => fetchFirebaseUserInfo())
 		.then((user) => {
 			if (!user?.isAdmin) {
-				throw new Error('Pollcat/Invalid-Admin');
+				throw new Error('pollcat/invalid-admin');
 			}
 			return setFirebaseAdminState(user);
 		})
