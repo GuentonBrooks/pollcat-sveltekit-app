@@ -14,17 +14,17 @@
 		<span>Home</span>
 	</AppRailAnchor>
 	
-	<AppRailAnchor href={adminPollsPage} selected={$page.url.pathname === adminPollsPage}>
+	<AppRailAnchor href={adminPollsPage} selected={$page.url.pathname.startsWith(adminPollsPage)}>
 		<svelte:fragment slot="lead"><NavPollButton /></svelte:fragment>
 		<span>Polls</span>
 	</AppRailAnchor>
 	
-	<AppRailAnchor href={adminRankingsPage} selected={$page.url.pathname === adminRankingsPage}>
+	<AppRailAnchor href={adminRankingsPage} selected={$page.url.pathname.startsWith(adminRankingsPage)}>
 		<svelte:fragment slot="lead"><NavFlagButton /></svelte:fragment>
 		<span>Rankings</span>
 	</AppRailAnchor>
 	
-	<AppRailAnchor href={adminUsersPage} selected={$page.url.pathname === adminUsersPage}>
+	<AppRailAnchor href={adminUsersPage} selected={$page.url.pathname.startsWith(adminUsersPage)}>
 		<svelte:fragment slot="lead"><NavUsersButton /></svelte:fragment>
 		<span>Users</span>
 	</AppRailAnchor>

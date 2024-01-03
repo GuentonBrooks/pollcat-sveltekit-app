@@ -8,6 +8,7 @@ export const authSignupPage = '/auth/signup';
 export const homePage = '/home';
 export const adminPage = '/admin';
 export const adminPollsPage = '/admin/polls';
+export const adminPollsAddPage = '/admin/polls/add';
 export const adminRankingsPage = '/admin/rankings';
 export const adminUsersPage = '/admin/users';
 

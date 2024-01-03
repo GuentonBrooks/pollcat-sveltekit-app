@@ -13,7 +13,7 @@
 		<AppBar>
 			<svelte:fragment slot="lead">
         <NavMenuButton on:click={() => isNavOnState.set(!$isNavOnState)} />
-				<strong class="text-xl ml-3">Administration</strong>
+				<strong class="text-xl ml-3">Admin</strong>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<LightSwitch />

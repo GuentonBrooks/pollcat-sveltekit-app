@@ -22,17 +22,17 @@
 		<span>Home</span>
 	</TabAnchor>
 	
-	<TabAnchor href={adminPollsPage} selected={$page.url.pathname === adminPollsPage}>
+	<TabAnchor href={adminPollsPage} selected={$page.url.pathname.startsWith(adminPollsPage)}>
 		<svelte:fragment slot="lead"><NavPollButton /></svelte:fragment>
 		<span>Polls</span>
 	</TabAnchor>
 	
-	<TabAnchor href={adminRankingsPage} selected={$page.url.pathname === adminRankingsPage}>
+	<TabAnchor href={adminRankingsPage} selected={$page.url.pathname.startsWith(adminRankingsPage)}>
 		<svelte:fragment slot="lead"><NavFlagButton /></svelte:fragment>
 		<span>Rankings</span>
 	</TabAnchor>
 	
-	<TabAnchor href={adminUsersPage} selected={$page.url.pathname === adminUsersPage}>
+	<TabAnchor href={adminUsersPage} selected={$page.url.pathname.startsWith(adminUsersPage)}>
 		<svelte:fragment slot="lead"><NavUsersButton /></svelte:fragment>
 		<span>Users</span>
 	</TabAnchor>
