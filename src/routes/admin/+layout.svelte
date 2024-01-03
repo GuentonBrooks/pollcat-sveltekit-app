@@ -1,14 +1,10 @@
 <script>
   import { AppShell, AppBar, LightSwitch } from '@skeletonlabs/skeleton';
-	import PollCatSvgSmall from '../../components/images/PollCatSvgSmall.svelte';
 	import LogoutButton from '../../components/buttons/LogoutButton.svelte';
-	import NavPollButton from '../../components/buttons/NavPollButton.svelte';
 	import AdminAppRail from '../../components/navigation/AdminAppRail.svelte';
-	import NavHamburgerButton from '../../components/buttons/NavMenuButton.svelte';
 	import NavMenuButton from '../../components/buttons/NavMenuButton.svelte';
 	import AdminBottomNav from '../../components/navigation/AdminBottomNav.svelte';
-
-  let showNav = false;
+	import { isNavOnState } from '../../store/alert';
 </script>
 
 <AppShell>
@@ -16,8 +12,8 @@
   <svelte:fragment slot="header">
 		<AppBar>
 			<svelte:fragment slot="lead">
-        <NavMenuButton on:click={() => showNav = !showNav} />
-				<strong class="text-xl ml-3">Administration Console</strong>
+        <NavMenuButton on:click={() => isNavOnState.set(!$isNavOnState)} />
+				<strong class="text-xl ml-3">Administration</strong>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<LightSwitch />
@@ -30,7 +26,7 @@
   <!-- Nav Rail -->
   <svelte:fragment slot="sidebarLeft">
     <div class="hidden md:block h-full">
-      {#if showNav}
+      {#if $isNavOnState}
         <AdminAppRail />
       {/if}
     </div>
@@ -41,7 +37,7 @@
   <!-- Bottom Nav -->
   <svelte:fragment slot="pageFooter">
     <div class="block md:hidden">
-      {#if showNav}
+      {#if $isNavOnState}
         <AdminBottomNav />
       {/if}
     </div>
