@@ -2,5 +2,5 @@
 </script>
 
 <div class="h-full grid place-content-center">
-	Admin Page
+	Polls Page
 </div>
