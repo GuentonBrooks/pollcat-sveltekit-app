@@ -1,22 +1,23 @@
 <script lang="ts">
-	import FormHeader from './../../../../components/text/FormHeader.svelte';
-	import SurfaceHeader from '../../../../components/text/SurfaceHeader.svelte';
-	import SurfaceContainer from './../../../../components/containers/SurfaceContainer.svelte';
-	import SurfaceTextInput from '../../../../components/inputs/SurfaceTextInput.svelte';
-	import SurfaceDateTimeInput from '../../../../components/inputs/SurfaceDateTimeInput.svelte';
-	import SelectPollType from '../../../../components/inputs/SelectPollType.svelte';
-	import SelectPollDefaultAnswerType from '../../../../components/inputs/SelectPollDefaultAnswerType.svelte';
-	import PollTypeDescription from '../../../../components/text/PollTypeDescription.svelte';
-	import PollDefaultAnswerTypeDescription from '../../../../components/text/PollDefaultAnswerTypeDescription.svelte';
+	import FormHeader from '$lib/components/text/FormHeader.svelte';
+	import SurfaceHeader from '$lib/components/text/SurfaceHeader.svelte';
+	import SurfaceContainer from '$lib/components/containers/SurfaceContainer.svelte';
+	import SurfaceTextInput from '$lib/components/inputs/SurfaceTextInput.svelte';
+	import SurfaceDateTimeInput from '$lib/components/inputs/SurfaceDateTimeInput.svelte';
+	import SelectPollType from '$lib/components/inputs/SelectPollType.svelte';
+	import SelectPollDefaultAnswerType from '$lib/components/inputs/SelectPollDefaultAnswerType.svelte';
+	import PollTypeDescription from '$lib/components/text/PollTypeDescription.svelte';
+	import PollDefaultAnswerTypeDescription from '$lib/components/text/PollDefaultAnswerTypeDescription.svelte';
 
-	import CancelButton from '../../../../components/buttons/CancelButton.svelte';
-	import SubmitButton from '../../../../components/buttons/SubmitButton.svelte';
+	import CancelButton from '$lib/components/buttons/CancelButton.svelte';
+	import SubmitButton from '$lib/components/buttons/SubmitButton.svelte';
 
-	import type { NewPollFormat, PollDefaultAnswerType, PollType } from '../../../../types/poll';
-	import isValidNewPollFormat from '../../../../services/poll/isValidNewPollFormat';
+	import type { NewPollFormat, PollDefaultAnswerType, PollType } from '$lib/types/poll';
+	import isValidNewPollFormat from '$lib/validation/poll/isValidNewPollFormat';
 	import { createNewPollAsync } from '$lib/firebase/polls';
-	import FlatAlert from '../../../../components/text/FlatAlert.svelte';
+	import FlatAlert from '$lib/components/text/FlatAlert.svelte';
 	import navigate, { adminPollsPage } from '$lib/navigate';
+	import { selectedPollIdState } from '$lib/store/poll';
 
   let name = '';
   let type: PollType = "vote";
@@ -38,7 +39,7 @@
     }
     if (!isValidNewPollFormat(newPoll)) return;
 
-    createNewPollAsync(newPoll).then((pollId) => console.log(pollId));
+    createNewPollAsync(newPoll).then((pollId) => selectedPollIdState.set(pollId));
   }
 </script>
 
@@ -51,7 +52,7 @@
   <div class="col-span-10 md:col-span-8 md:col-start-2 lg:col-span-6 lg:col-start-3 xl:col-span-4 xl:col-start-4">
     <SurfaceContainer>
       <SurfaceHeader label="Enter Poll Name" />
-      <SurfaceTextInput bind:value={name} bind:ref={nameRef} placeholder="Poll Name" />
+      <SurfaceTextInput bind:value={name} bind:ref={nameRef} placeholder="Poll Name" name="pollName" />
     </SurfaceContainer>
   </div>
 
@@ -87,13 +88,13 @@
   <div class="col-span-10 md:col-span-5">
     <SurfaceContainer>
       <SurfaceHeader label="Select Opening Date" />
-      <SurfaceDateTimeInput bind:value={openingDateTime} bind:ref={openingDateTimeRef} placeholder="Opening Date" />
+      <SurfaceDateTimeInput bind:value={openingDateTime} bind:ref={openingDateTimeRef} placeholder="Opening Date" name="openingDate" />
     </SurfaceContainer>
   </div>
   <div class="col-span-10 md:col-span-5">
     <SurfaceContainer>
       <SurfaceHeader label="Select Closing Date" />
-      <SurfaceDateTimeInput bind:value={closingDateTime} bind:ref={closingDateTimeRef} placeholder="Closing Date" />
+      <SurfaceDateTimeInput bind:value={closingDateTime} bind:ref={closingDateTimeRef} placeholder="Closing Date" name="closingDate" />
     </SurfaceContainer>
   </div>
 

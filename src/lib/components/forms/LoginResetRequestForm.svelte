@@ -9,8 +9,8 @@
 	import FormHeader from "../text/FormHeader.svelte";
 	import FormFooter from "../text/FormFooter.svelte";
 	import { firebaseSendPasswordResetEmail } from "$lib/firebase/auth";
-	import isValidEmailFormat from "../../services/auth/isValidEmailFormat";
-	import { alertTextState, alertTypeState } from "../../store/alert";
+	import { alertTextState, alertTypeState } from "$lib/store/alert";
+	import isValidEmailFormat from "$lib/validation/auth/isValidEmailFormat";
 
   let email = '';
 

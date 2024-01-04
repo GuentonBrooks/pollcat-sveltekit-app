@@ -1,18 +1,19 @@
 <script>
   import { AppShell, AppBar, LightSwitch } from '@skeletonlabs/skeleton';
-  import GuentonLogo from '../../components/images/GuentonLogo.svelte';
-	import PollCatSvgLarge from '../../components/images/PollCatSvgLarge.svelte';
+	
 	import { authAdminLoginPage } from '$lib/navigate';
+  import GuentonLogo from '$lib/components/images/GuentonLogo.svelte';
+	import PollCatSvgLarge from '$lib/components/images/PollCatSvgLarge.svelte';
 </script>
 
 <AppShell>
   <svelte:fragment slot="header">
-		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
 				<strong class="text-xl">{"<PollCat />"}</strong>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
+
 				<!-- Link Buttons -->
 				<a
 					class="btn btn-sm variant-ghost-surface"

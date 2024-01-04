@@ -1,7 +1,7 @@
 <script>
 	import navigate, { adminQuestionsAddPage } from "$lib/navigate";
-	import NewQuestionButton from "../../../components/buttons/NewQuestionButton.svelte";
-	import FormHeader from "../../../components/text/FormHeader.svelte";
+	import NewQuestionButton from "$lib/components/buttons/NewQuestionButton.svelte";
+	import FormHeader from "$lib/components/text/FormHeader.svelte";
 
 </script>
 

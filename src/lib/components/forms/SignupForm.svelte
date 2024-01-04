@@ -4,13 +4,13 @@
 	import FlatAlert from "../text/FlatAlert.svelte";
 	import SignupButton from "../buttons/SignupButton.svelte";
 
-	// import loginAsync from "../../services/auth/loginAsync";
+	// import loginAsync from "$lib/validation/auth/loginAsync";
 	import TextInput from "../inputs/TextInput.svelte";
 	import { onMount } from "svelte";
 	import PasswordInput from "../inputs/PasswordInput.svelte";
 	import FormHeader from "../text/FormHeader.svelte";
 	import FormFooter from "../text/FormFooter.svelte";
-	import isValidSignupFormat from "../../services/auth/isValidSignupFormat";
+	import isValidSignupFormat from "$lib/validation/auth/isValidSignupFormat";
 	import { firebasePasswordSignUp } from "$lib/firebase/auth";
 
   let email = '';

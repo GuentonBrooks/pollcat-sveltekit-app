@@ -1,8 +1,8 @@
 import isEmpty from 'validator/lib/isEmpty';
 import isAscii from 'validator/lib/isAscii';
 
-import { alertTextState, alertTypeState } from '../../store/alert';
-import type { NewPollFormat } from '../../types/poll';
+import { alertTextState, alertTypeState } from '$lib/store/alert';
+import type { NewPollFormat } from '$lib/types/poll';
 
 /**
  * Validate the login new Poll Format parameters

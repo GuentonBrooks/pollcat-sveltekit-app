@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { ListBox, ListBoxItem } from "@skeletonlabs/skeleton";
-	import type { PollType } from "../../types/poll";
+	import type { PollType } from "$lib/types/poll";
 
 	import VoteFab from "../buttons/VoteFab.svelte";
 	import ApprovalFab from "../buttons/ApprovalFab.svelte";

@@ -11,9 +11,9 @@ import {
 } from 'firebase/auth';
 import { child, get, ref, set } from 'firebase/database';
 
-import { alertTextState, alertTypeState } from '../../store/alert';
-import { emailState, firstNameState, lastNameState, userIdState } from '../../store/auth';
-import type { FirebaseDatabaseUserFormat, FirebaseUserShortInfoFormat } from '../../types/auth';
+import { alertTextState, alertTypeState } from '$lib/store/alert';
+import { emailState, firstNameState, lastNameState, userIdState } from '$lib/store/auth';
+import type { FirebaseDatabaseUserFormat, FirebaseUserShortInfoFormat } from '$lib/types/auth';
 
 /** Initialize Auth Handler */
 export const auth = getAuth(app);

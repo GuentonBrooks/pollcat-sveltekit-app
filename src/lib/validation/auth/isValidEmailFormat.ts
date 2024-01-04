@@ -2,7 +2,7 @@ import isEmpty from 'validator/lib/isEmpty';
 import isAscii from 'validator/lib/isAscii';
 import isEmail from 'validator/lib/isEmail';
 
-import { alertTextState, alertTypeState } from '../../store/alert';
+import { alertTextState, alertTypeState } from '$lib/store/alert';
 
 /**
  * Validate the login format and parameters

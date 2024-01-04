@@ -1,11 +1,10 @@
 <script>
 	import { onMount } from "svelte";
+	import { onAuthStateChanged } from "firebase/auth";
 	import { authLoginPage, gotoHomePage } from "$lib/navigate";
 	import { auth, setFirebaseUserState } from "$lib/firebase/auth";
-	import { onAuthStateChanged } from "firebase/auth";
-	
-	import PollCatSvgLarge from "../components/images/PollCatSvgLarge.svelte";
-	import Title from "../components/text/Title.svelte";
+	import PollCatSvgLarge from "$lib/components/images/PollCatSvgLarge.svelte";
+	import Title from "$lib/components/text/Title.svelte";
 
 	onMount(() => onAuthStateChanged(auth, (user) => {
 		if (user) {

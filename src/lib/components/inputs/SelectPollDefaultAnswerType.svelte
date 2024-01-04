@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { ListBox, ListBoxItem } from "@skeletonlabs/skeleton";
-	import type { PollDefaultAnswerType } from "../../types/poll";
+	import type { PollDefaultAnswerType } from "$lib/types/poll";
 
 	import RepeatFab from "../buttons/RepeatFab.svelte";
 	import ManualFab from "../buttons/ManualFab.svelte";

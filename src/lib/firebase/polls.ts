@@ -1,8 +1,8 @@
 import { db } from './app';
 import { push, ref } from 'firebase/database';
 
-import type { NewPollFormat } from '../../types/poll';
-import { alertTextState, alertTypeState } from '../../store/alert';
+import type { NewPollFormat } from '$lib/types/poll';
+import { alertTextState, alertTypeState } from '$lib/store/alert';
 
 const dbRef = ref(db, 'polls/');
 

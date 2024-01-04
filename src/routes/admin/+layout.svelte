@@ -1,10 +1,10 @@
 <script>
   import { AppShell, AppBar, LightSwitch } from '@skeletonlabs/skeleton';
-	import LogoutButton from '../../components/buttons/LogoutButton.svelte';
-	import AdminAppRail from '../../components/navigation/AdminAppRail.svelte';
-	import NavMenuButton from '../../components/buttons/NavMenuButton.svelte';
-	import AdminBottomNav from '../../components/navigation/AdminBottomNav.svelte';
-	import { isNavOnState } from '../../store/alert';
+	import { isNavOnState } from '$lib/store/alert';
+	import LogoutButton from '$lib/components/buttons/LogoutButton.svelte';
+	import AdminAppRail from '$lib/components/navigation/AdminAppRail.svelte';
+	import NavMenuButton from '$lib/components/buttons/NavMenuButton.svelte';
+	import AdminBottomNav from '$lib/components/navigation/AdminBottomNav.svelte';
 </script>
 
 <AppShell>

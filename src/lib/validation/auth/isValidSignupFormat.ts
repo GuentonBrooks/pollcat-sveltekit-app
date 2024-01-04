@@ -2,8 +2,8 @@ import isEmpty from 'validator/lib/isEmpty';
 import isAscii from 'validator/lib/isAscii';
 import isEmail from 'validator/lib/isEmail';
 
-import { alertTextState, alertTypeState } from '../../store/alert';
-import type { SignupFormat } from '../../types/auth';
+import { alertTextState, alertTypeState } from '$lib/store/alert';
+import type { SignupFormat } from '$lib/types/auth';
 
 /**
  * Validate the login format and parameters

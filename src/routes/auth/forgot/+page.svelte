@@ -1,5 +1,5 @@
 <script>
-	import LoginResetRequestForm from "../../../components/forms/LoginResetRequestForm.svelte";
+	import LoginResetRequestForm from "$lib/components/forms/LoginResetRequestForm.svelte";
 </script>
 
 <div class="h-full grid place-content-center">

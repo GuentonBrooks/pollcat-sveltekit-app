@@ -8,7 +8,7 @@
   import IconCheckDecagram from "~icons/mdi/check-decagram";
   import IconChatQuestion from "~icons/mdi/chat-question";
 
-  import { alertTextState, alertTypeState } from "../../store/alert";
+  import { alertTextState, alertTypeState } from "$lib/store/alert";
 
   let text = "";
   let type = "";

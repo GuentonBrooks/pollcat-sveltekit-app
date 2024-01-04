@@ -1,17 +1,17 @@
 <script lang="ts">
-	import FormHeader from './../../../../components/text/FormHeader.svelte';
-	import SurfaceHeader from '../../../../components/text/SurfaceHeader.svelte';
-	import SurfaceContainer from './../../../../components/containers/SurfaceContainer.svelte';
-	import SurfaceTextInput from '../../../../components/inputs/SurfaceTextInput.svelte';
-	import SurfaceToggle from '../../../../components/inputs/SurfaceToggle.svelte';
+	import FormHeader from '$lib/components/text/FormHeader.svelte';
+	import SurfaceHeader from '$lib/components/text/SurfaceHeader.svelte';
+	import SurfaceContainer from '$lib/components/containers/SurfaceContainer.svelte';
+	import SurfaceTextInput from '$lib/components/inputs/SurfaceTextInput.svelte';
+	import SurfaceToggle from '$lib/components/inputs/SurfaceToggle.svelte';
 
-	import CancelButton from '../../../../components/buttons/CancelButton.svelte';
-	import SubmitButton from '../../../../components/buttons/SubmitButton.svelte';
+	import CancelButton from '$lib/components/buttons/CancelButton.svelte';
+	import SubmitButton from '$lib/components/buttons/SubmitButton.svelte';
 
-	import FlatAlert from '../../../../components/text/FlatAlert.svelte';
+	import FlatAlert from '$lib/components/text/FlatAlert.svelte';
 	import navigate, { adminQuestionsPage } from '$lib/navigate';
-	import type { newQuestionFormat } from '../../../../types/question';
-	import SurfaceAddFab from '../../../../components/buttons/SurfaceAddFab.svelte';
+	import type { newQuestionFormat } from '$lib/types/question';
+	import SurfaceAddFab from '$lib/components/buttons/SurfaceAddFab.svelte';
 
   let question: string = '';
   let isMultipleChoice: boolean = true;

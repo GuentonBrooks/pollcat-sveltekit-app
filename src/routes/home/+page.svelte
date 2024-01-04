@@ -2,6 +2,6 @@
 
 </script>
 
-<div class="h-full flex justify-center items-center">
+<div class="h-full grid place-content-center">
 	Home
 </div>
