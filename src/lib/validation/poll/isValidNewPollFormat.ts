@@ -2,14 +2,14 @@ import isEmpty from 'validator/lib/isEmpty';
 import isAscii from 'validator/lib/isAscii';
 
 import { alertTextState, alertTypeState } from '$lib/store/alert';
-import type { NewPollFormat } from '$lib/types/poll';
+import type { PollFormat } from '$lib/types/poll';
 
 /**
  * Validate the login new Poll Format parameters
  *
  * @param newPoll
  */
-export default (newPoll: NewPollFormat) => {
+export default (newPoll: PollFormat) => {
 	// Check if the name has a value
 	if (isEmpty(newPoll.name)) {
 		alertTypeState.set('warning');

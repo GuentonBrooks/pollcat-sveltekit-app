@@ -9,9 +9,11 @@
 	import SubmitButton from '$lib/components/buttons/SubmitButton.svelte';
 
 	import FlatAlert from '$lib/components/text/FlatAlert.svelte';
-	import navigate, { adminQuestionsPage } from '$lib/navigate';
-	import type { newQuestionFormat } from '$lib/types/question';
+	import navigate, { adminQuestionsPage, gotoAdminPollQuestionPage } from '$lib/navigate';
 	import SurfaceAddFab from '$lib/components/buttons/SurfaceAddFab.svelte';
+	import type { PollQuestionFormat } from '$lib/types/poll';
+	import { page } from '$app/stores';
+	import { editPollQuestionAsync } from '$lib/firebase/polls';
 
   let question: string = '';
   let isMultipleChoice: boolean = true;
@@ -21,13 +23,18 @@
   let answerRef: HTMLInputElement;
 
   const sumbitNewQuestion = () => {
-    const newQuestion: newQuestionFormat = {
+    const pollId = $page.params.pollId;
+    const qid = $page.params.qid;
+    const newQuestion: PollQuestionFormat = {
       question,
       isMultipleChoice,
       answerOptions,
-    }
+    };
 
-    console.log(newQuestion);
+    if (!pollId) return;
+    if (!qid) return;
+
+    editPollQuestionAsync(pollId, qid, newQuestion).then(() => gotoAdminPollQuestionPage(pollId));
   }
 </script>
 

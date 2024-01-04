@@ -14,6 +14,7 @@ import { child, get, ref, set } from 'firebase/database';
 import { alertTextState, alertTypeState } from '$lib/store/alert';
 import { emailState, firstNameState, lastNameState, userIdState } from '$lib/store/auth';
 import type { FirebaseDatabaseUserFormat, FirebaseUserShortInfoFormat } from '$lib/types/auth';
+import { errorInvalidAdmin } from '$lib/validation/error/pollcat';
 
 /** Initialize Auth Handler */
 export const auth = getAuth(app);
@@ -62,7 +63,7 @@ export const firebaseAdminSignIn = (email: string, password: string) =>
 		.then(() => fetchFirebaseUserInfo())
 		.then((user) => {
 			if (!user?.isAdmin) {
-				throw new Error('pollcat/invalid-admin');
+				throw new Error(errorInvalidAdmin);
 			}
 			return setFirebaseAdminState(user);
 		})
@@ -116,11 +117,10 @@ export const storeFirebaseUserAsync = () =>
 export const fetchFirebaseUserInfo = () =>
 	get(child(ref(db), `users/${getFirebaseUserId()}`))
 		.then((snapshot) => {
-			if (snapshot.exists()) {
-				return snapshot.val() as FirebaseDatabaseUserFormat;
-			} else {
+			if (!snapshot.exists()) {
 				return null;
 			}
+			return snapshot.val() as FirebaseDatabaseUserFormat;
 		})
 		.catch((error) => {
 			throw error;

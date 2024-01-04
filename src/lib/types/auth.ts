@@ -27,3 +27,6 @@ export type LoginFormat = {
 	email: string;
 	password: string;
 };
+
+/** FIREBASE - Format for Firebase KeyValue Object */
+export type FirebaseKeyValueObjectFormat = { [key: string]: string };

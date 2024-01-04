@@ -12,7 +12,7 @@
 	import CancelButton from '$lib/components/buttons/CancelButton.svelte';
 	import SubmitButton from '$lib/components/buttons/SubmitButton.svelte';
 
-	import type { NewPollFormat, PollDefaultAnswerType, PollType } from '$lib/types/poll';
+	import type { PollFormat, PollDefaultAnswerType, PollType } from '$lib/types/poll';
 	import isValidNewPollFormat from '$lib/validation/poll/isValidNewPollFormat';
 	import { createNewPollAsync } from '$lib/firebase/polls';
 	import FlatAlert from '$lib/components/text/FlatAlert.svelte';
@@ -30,7 +30,7 @@
   let closingDateTimeRef: HTMLInputElement;
 
   const sumbitNewPoll = () => {
-    const newPoll: NewPollFormat = {
+    const newPoll: PollFormat = {
       name,
       type,
       defaultAnswerType,

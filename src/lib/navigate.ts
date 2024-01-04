@@ -9,6 +9,7 @@ export const homePage = '/home';
 export const adminPage = '/admin';
 export const adminPollsPage = '/admin/polls';
 export const adminPollsAddPage = '/admin/polls/add';
+export const adminPollsEditPage = '/admin/polls/edit';
 export const adminQuestionsPage = '/admin/questions';
 export const adminQuestionsAddPage = '/admin/questions/add';
 export const adminRankingsPage = '/admin/rankings';
@@ -35,3 +36,11 @@ export const gotoHomePage = () => goto(homePage);
 
 /** Navigate to the Admin Page. */
 export const gotoAdminPage = () => goto(adminPage);
+
+/** Navigate to the Admin Poll Question Page. */
+export const gotoAdminPollQuestionPage = (pollId: string) =>
+	goto(`${adminPollsEditPage}/${pollId}/questions`);
+
+/** Navigate to the Admin Poll Question Page. */
+export const gotoAdminPollQuestionEditPage = (pollId: string, qid: string) =>
+	goto(`${adminPollsEditPage}/${pollId}/questions/${qid}`);
