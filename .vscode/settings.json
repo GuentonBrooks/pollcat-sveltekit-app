@@ -2,6 +2,7 @@
 	"editor.formatOnType": true,
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
   "workbench.iconTheme": "material-icon-theme",
   "workbench.colorTheme": "Atlantic Night",
   "workbench.colorCustomizations": {

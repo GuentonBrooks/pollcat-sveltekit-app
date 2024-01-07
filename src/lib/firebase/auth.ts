@@ -30,11 +30,18 @@ export const googleSignInPopup = () => signInWithPopup(auth, provider);
 
 /** Sign Out */
 export const firebaseSignOut = () =>
-	signOut(auth).catch((error) => {
-		alertTypeState.set('error');
-		alertTextState.set(error.code);
-		throw error;
-	});
+	signOut(auth)
+		.then(() => {
+			userIdState.set('');
+			emailState.set('');
+			firstNameState.set('');
+			lastNameState.set('');
+		})
+		.catch((error) => {
+			alertTypeState.set('error');
+			alertTextState.set(error.code);
+			throw error;
+		});
 
 /** Sign up with Email and Password */
 export const firebasePasswordSignUp = (email: string, password: string) =>
