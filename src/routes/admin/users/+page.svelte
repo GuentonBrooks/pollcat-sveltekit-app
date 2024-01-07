@@ -1,6 +1,10 @@
 <script>
+	import TenColGridContainer from '$lib/components/containers/TenColGridContainer.svelte';
+	import Header from '$lib/components/content/Header.svelte';
 </script>
 
-<div class="h-full grid place-content-center">
-	Users Page
-</div>
+<TenColGridContainer>
+	<div class="col-span-10">
+		<Header label="Users" />
+	</div>
+</TenColGridContainer>
