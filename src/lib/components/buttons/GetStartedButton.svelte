@@ -1,12 +1,12 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
-	import IconLoginVariant from '~icons/mdi/login-variant';
+	import IconPlay from '~icons/mdi/play';
 
 	const dispatch = createEventDispatcher();
 	const click = () => dispatch('click');
 </script>
 
 <button type="button" class="btn variant-filled-primary" on:click={click}>
-	<IconLoginVariant />
-	<span>Signup</span>
+	<IconPlay />
+	<span>Get Started</span>
 </button>
