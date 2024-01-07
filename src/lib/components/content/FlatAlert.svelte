@@ -17,7 +17,7 @@
 </script>
 
 {#if $alertTypeState === 'info' && $alertTextState}
-	<aside class="alert variant-soft m-3 w-full max-w-xl" transition:fade|local={{ duration: 200 }}>
+	<aside class="alert variant-soft m-3 w-full" transition:fade|local={{ duration: 200 }}>
 		<div class="btn-icon variant-soft-primary">
 			<IconInformation />
 		</div>
@@ -31,10 +31,7 @@
 		</div>
 	</aside>
 {:else if $alertTypeState === 'success' && $alertTextState}
-	<aside
-		class="alert variant-soft-success m-3 w-full max-w-xl"
-		transition:fade|local={{ duration: 200 }}
-	>
+	<aside class="alert variant-soft-success m-3 w-full" transition:fade|local={{ duration: 200 }}>
 		<div class="btn-icon variant-soft-success">
 			<IconPlay />
 		</div>
@@ -48,10 +45,7 @@
 		</div>
 	</aside>
 {:else if $alertTypeState === 'warning' && $alertTextState}
-	<aside
-		class="alert variant-soft-warning m-3 w-full max-w-xl"
-		transition:fade|local={{ duration: 200 }}
-	>
+	<aside class="alert variant-soft-warning m-3 w-full" transition:fade|local={{ duration: 200 }}>
 		<div class="btn-icon variant-soft-warning">
 			<IconPause />
 		</div>
@@ -65,10 +59,7 @@
 		</div>
 	</aside>
 {:else if $alertTypeState === 'error' && $alertTextState}
-	<aside
-		class="alert variant-soft-error m-3 w-full max-w-xl"
-		transition:fade|local={{ duration: 200 }}
-	>
+	<aside class="alert variant-soft-error m-3 w-full" transition:fade|local={{ duration: 200 }}>
 		<div class="btn-icon variant-soft-error">
 			<IconStop />
 		</div>
@@ -82,7 +73,7 @@
 		</div>
 	</aside>
 {:else if $alertTextState}
-	<aside class="alert variant-soft m-3 w-full max-w-xl" transition:fade|local={{ duration: 200 }}>
+	<aside class="alert variant-soft m-3 w-full" transition:fade|local={{ duration: 200 }}>
 		<div class="btn-icon">
 			<IconChatQuestion />
 		</div>

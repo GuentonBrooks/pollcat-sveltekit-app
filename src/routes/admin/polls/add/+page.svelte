@@ -15,7 +15,6 @@
 	import type { PollFormat, PollDefaultAnswerType, PollType } from '$lib/types/poll';
 	import isValidNewPollFormat from '$lib/validation/poll/isValidNewPollFormat';
 	import { createNewPollAsync } from '$lib/firebase/polls';
-	import FlatAlert from '$lib/components/content/FlatAlert.svelte';
 	import navigate, { adminPollsPage } from '$lib/navigate';
 	import { selectedPollIdState } from '$lib/store/poll';
 
@@ -118,9 +117,5 @@
 	<div class="col-span-10 place-self-stretch grid grid-cols-2 place-items-center">
 		<CancelButton on:click={() => navigate(adminPollsPage)} />
 		<SubmitButton on:click={sumbitNewPoll} />
-	</div>
-
-	<div class="col-span-10">
-		<FlatAlert />
 	</div>
 </div>

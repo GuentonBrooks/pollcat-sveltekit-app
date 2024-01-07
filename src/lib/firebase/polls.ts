@@ -1,10 +1,10 @@
 import { db } from './app';
 import { child, get, onValue, push, ref, set } from 'firebase/database';
 
-import type { PollFormat, PollQuestionFormat } from '$lib/types/poll';
+import type { PollFormat, PollQuestionFormat, PollsFirebaseFormat } from '$lib/types/poll';
 import { alertTextState, alertTypeState } from '$lib/store/alert';
 import { errorIdNotReceived, errorItemNotFoundById } from '$lib/validation/error/pollcat';
-import { selectedPollState } from '$lib/store/poll';
+import { allPollState, selectedPollState } from '$lib/store/poll';
 
 const dbRef = ref(db, 'polls/');
 
@@ -45,6 +45,14 @@ export const fetchPollById = (pollId: string) =>
 			alertTextState.set(error.code || error.message);
 			throw error;
 		});
+
+/** FIREBASE - Watches all polld for changes */
+export const watchAllPolls = () =>
+	onValue(dbRef, (snapshot) => {
+		const allPollsObject = snapshot.val() as PollsFirebaseFormat;
+		console.log(snapshot.val());
+		allPollState.set(allPollsObject);
+	});
 
 /** FIREBASE - Watches a poll object by the given PollId */
 export const watchPollById = (pollId: string) =>

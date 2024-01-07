@@ -1,6 +1,6 @@
 <script>
 	import navigate, { adminPollsAddPage } from '$lib/navigate';
-	import NewPollButton from '$lib/components/buttons/NewPollButton.svelte';
+	import AddNewButton from '$lib/components/buttons/AddNewButton.svelte';
 	import AuthHeader from '$lib/components/content/AuthHeader.svelte';
 </script>
 
@@ -9,6 +9,6 @@
 		<AuthHeader label="Edit Polls" />
 	</div>
 	<div class="col-span-10 md:col-span-4 xl:col-span-2">
-		<NewPollButton on:click={() => navigate(adminPollsAddPage)} />
+		<AddNewButton on:click={() => navigate(adminPollsAddPage)} />
 	</div>
 </div>

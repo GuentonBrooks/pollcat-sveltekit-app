@@ -1,5 +1,3 @@
-import type { FirebaseKeyValueObjectFormat } from './auth';
-
 /** POLL - Enum for poll Type */
 export type PollType = 'vote' | 'approval' | 'score' | 'ranking' | 'bracket';
 
@@ -13,7 +11,14 @@ export type PollFormat = {
 	defaultAnswerType: PollDefaultAnswerType;
 	openingDateTime: string;
 	closingDateTime: string;
-	questions?: FirebaseKeyValueObjectFormat;
+	questions?: {
+		[key: string]: PollQuestionFormat;
+	};
+};
+
+/** POLL - Format for Firebase Polls Document */
+export type PollsFirebaseFormat = {
+	[key: string]: PollFormat;
 };
 
 /** POLL - Format for new Poll Question */
