@@ -5,7 +5,7 @@
 </script>
 
 <div class="flex gap-2 justify-center">
-	<p class="text-sm text-tertiary-700">{label}</p>
+	<p class="text-sm">{label}</p>
 
 	{#if href}
 		<a class="text-sm anchor" {href}>{subLabel}</a>

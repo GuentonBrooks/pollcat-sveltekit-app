@@ -1,7 +1,7 @@
 <script>
 	import Title from '$lib/components/content/Title.svelte';
 	import PollCatSvgLarge from '$lib/components/images/PollCatSvgLarge.svelte';
-	import GetStartedButton from '$lib/components/buttons/GetStartedButton.svelte';
+	import PawButton from '$lib/components/buttons/PawButton.svelte';
 
 	import { onMount } from 'svelte';
 	import { onAuthStateChanged } from 'firebase/auth';
@@ -13,6 +13,8 @@
 			if (user) {
 				setFirebaseUserState();
 				gotoHomePage();
+			} else {
+				gotoLoginPage();
 			}
 		})
 	);
@@ -21,5 +23,5 @@
 <div class="h-full grid grid-cols-1 my-5 gap-20 justify-items-center content-center">
 	<Title />
 	<PollCatSvgLarge />
-	<GetStartedButton on:click={gotoLoginPage} />
+	<PawButton on:click={gotoLoginPage} />
 </div>

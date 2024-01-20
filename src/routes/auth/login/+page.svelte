@@ -8,6 +8,7 @@
 	import isValidLoginFormat from '$lib/validation/auth/isValidLoginFormat';
 	import { firebasePasswordSignIn } from '$lib/firebase/auth';
 	import { authForgotPage, authSignupPage, gotoHomePage } from '$lib/navigate';
+	import PawButton from '$lib/components/buttons/PawButton.svelte';
 
 	let email = '';
 	let password = '';
@@ -47,6 +48,7 @@
 	</div>
 
 	<div class="text-center mt-8">
-		<LoginButton on:click={login} />
+		<!-- <LoginButton on:click={login} /> -->
+		<PawButton secondary on:click={login} />
 	</div>
 </AuthContainer>

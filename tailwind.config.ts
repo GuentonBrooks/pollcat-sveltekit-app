@@ -1,3 +1,4 @@
+import { pollCatColorTheme } from './src/lib/themes/colors';
 import { join } from 'path';
 import type { Config } from 'tailwindcss';
 import forms from '@tailwindcss/forms';
@@ -27,7 +28,8 @@ export default {
 						name: 'gold-nouveau',
 						enhancements: true
 					}
-				]
+				],
+				custom: [pollCatColorTheme]
 			}
 		})
 	]

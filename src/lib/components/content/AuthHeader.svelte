@@ -5,5 +5,5 @@
 
 <div class="grid grid-cols-1 justify-items-center">
 	<h1 class="h1 font-bold text-primary-500">{label}</h1>
-	<p class="text-sm text-tertiary-700">{subLabel}</p>
+	<p class="text-sm">{subLabel}</p>
 </div>

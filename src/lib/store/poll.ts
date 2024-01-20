@@ -5,6 +5,6 @@ import type { PollFormat, PollsFirebaseFormat } from '$lib/types/poll';
 const initPollState: PollFormat = {} as PollFormat;
 const initAllPollState: PollsFirebaseFormat = {} as PollsFirebaseFormat;
 
-export const selectedPollIdState: Writable<string> = localStorageStore('selectedPollIdState', '');
+export const selectedPollIdState: Writable<string> = localStorageStore('selectedPollId', '');
 export const selectedPollState: Writable<PollFormat> = writable(initPollState);
 export const allPollState: Writable<PollsFirebaseFormat> = writable(initAllPollState);
