@@ -18,33 +18,34 @@
 <AppShell>
 	<!-- App Bar -->
 	<svelte:fragment slot="header">
-		<AdminAppBar />
+		<div class="fixed top-0 left-0 right-0">
+			<AdminAppBar />
+		</div>
 	</svelte:fragment>
 
 	<!-- Nav Rail -->
 	<svelte:fragment slot="sidebarLeft">
-		<div class="hidden md:block h-full">
-			{#if $isNavOnState}
-				<AdminAppRail />
-			{/if}
+		<div class="hidden md:block h-full py-32 bg-surface-100-800-token fixed top-0">
+			<AdminAppRail />
 		</div>
 	</svelte:fragment>
 
-	<slot />
+	<div class="pt-28 pb-24 md:pb-4 md:pt-32 md:pl-20">
+		<slot />
+	</div>
 
 	<!-- Flat Alert Container -->
 	<svelte:fragment slot="pageFooter">
-		<div class="mr-8 ml-2">
+		<!-- <div class="mr-8 ml-2 pb-28 md:pb-4 md:pl-20"> -->
+		<div class="mr-8 ml-2 fixed bottom-24 left-0 right-0 md:bottom-4 md:left-20">
 			<FlatAlert />
 		</div>
 	</svelte:fragment>
 
 	<!-- Bottom Nav -->
 	<svelte:fragment slot="footer">
-		<div class="block md:hidden">
-			{#if $isNavOnState}
-				<AdminBottomNav />
-			{/if}
+		<div class="block md:hidden fixed bottom-0 left-0 right-0">
+			<AdminBottomNav />
 		</div>
 	</svelte:fragment>
 </AppShell>

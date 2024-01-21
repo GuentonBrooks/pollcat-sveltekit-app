@@ -10,7 +10,7 @@
 	export let poll: PollFormat;
 </script>
 
-<div class="variant-filled-tertiary dark:variant-soft-tertiary rounded p-3">
+<div class="variant-soft-secondary dark:variant-soft-secondary rounded-xl p-3">
 	<div class="flex justify-between items-center mb-4">
 		<h2 class="h2">{poll.name}</h2>
 		<EditFabSmall on:click={edit} />

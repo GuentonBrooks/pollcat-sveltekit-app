@@ -35,12 +35,7 @@
 	footerHref={authLoginPage}
 >
 	<div class="w-80">
-		<EmailInput
-			placeholder="Admin"
-			bind:value={email}
-			bind:ref={emailRef}
-			on:enter={() => passwordRef.focus()}
-		/>
+		<EmailInput bind:value={email} bind:ref={emailRef} on:enter={() => passwordRef.focus()} />
 	</div>
 
 	<div class="w-80">
