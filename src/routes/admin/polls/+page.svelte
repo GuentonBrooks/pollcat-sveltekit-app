@@ -1,5 +1,4 @@
 <script lang="ts">
-	import HeaderWithAdd from '$lib/components/content/HeaderWithAdd.svelte';
 	import SurfaceContainer from '$lib/components/containers/SurfaceContainer.svelte';
 	import TenColGridContainer from '$lib/components/containers/TenColGridContainer.svelte';
 	import PollItemBox from '$lib/components/content/PollItemBox.svelte';

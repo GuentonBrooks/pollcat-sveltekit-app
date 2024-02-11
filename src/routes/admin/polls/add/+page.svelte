@@ -2,7 +2,7 @@
 	import AuthHeader from '$lib/components/content/AuthHeader.svelte';
 	import SurfaceHeader from '$lib/components/content/SurfaceHeader.svelte';
 	import SurfaceContainer from '$lib/components/containers/SurfaceContainer.svelte';
-	import SurfaceTextInput from '$lib/components/inputs/SurfaceTextInput.svelte';
+	import TextInputWithLabel from '$lib/components/inputs/TextInputWithLabel.svelte';
 	import SurfaceDateTimeInput from '$lib/components/inputs/SurfaceDateTimeInput.svelte';
 	import SelectPollType from '$lib/components/inputs/SelectPollType.svelte';
 	import SelectPollDefaultAnswerType from '$lib/components/inputs/SelectPollDefaultAnswerType.svelte';
@@ -17,6 +17,7 @@
 	import { createNewPollAsync } from '$lib/firebase/polls';
 	import navigate, { adminPollsPage } from '$lib/navigate';
 	import { selectedPollIdState } from '$lib/store/poll';
+	import TenColGridContainer from '$lib/components/containers/TenColGridContainer.svelte';
 
 	let name = '';
 	let type: PollType = 'vote';
@@ -42,18 +43,16 @@
 	};
 </script>
 
-<div class="grid grid-cols-10 m-5 mt-10 gap-10">
+<TenColGridContainer>
 	<div class="col-span-10">
 		<AuthHeader label="Create New Poll" />
 	</div>
 
 	<!-- Poll Name Input -->
-	<div
-		class="col-span-10 md:col-span-8 md:col-start-2 lg:col-span-6 lg:col-start-3 xl:col-span-4 xl:col-start-4"
-	>
+	<div class="col-span-10">
 		<SurfaceContainer>
 			<SurfaceHeader label="Enter Poll Name" />
-			<SurfaceTextInput
+			<TextInputWithLabel
 				bind:value={name}
 				bind:ref={nameRef}
 				placeholder="Poll Name"
@@ -118,4 +117,4 @@
 		<CancelButton on:click={() => navigate(adminPollsPage)} />
 		<SubmitButton on:click={sumbitNewPoll} />
 	</div>
-</div>
+</TenColGridContainer>

@@ -2,7 +2,7 @@
 	import AuthHeader from '$lib/components/content/AuthHeader.svelte';
 	import SurfaceHeader from '$lib/components/content/SurfaceHeader.svelte';
 	import SurfaceContainer from '$lib/components/containers/SurfaceContainer.svelte';
-	import SurfaceTextInput from '$lib/components/inputs/SurfaceTextInput.svelte';
+	import TextInputWithLabel from '$lib/components/inputs/TextInputWithLabel.svelte';
 	import SurfaceToggle from '$lib/components/inputs/SurfaceToggle.svelte';
 
 	import CancelButton from '$lib/components/buttons/CancelButton.svelte';
@@ -49,7 +49,7 @@
 	>
 		<SurfaceContainer>
 			<SurfaceHeader label="Enter Question" />
-			<SurfaceTextInput bind:value={question} bind:ref={questionRef} placeholder="Question" />
+			<TextInputWithLabel bind:value={question} bind:ref={questionRef} placeholder="Question" />
 		</SurfaceContainer>
 	</div>
 
@@ -71,7 +71,7 @@
 			<SurfaceContainer>
 				<SurfaceHeader label="Add Answer Options" />
 				<div class="mb-3">
-					<SurfaceTextInput
+					<TextInputWithLabel
 						bind:value={answerOptions[0]}
 						bind:ref={answerRef}
 						placeholder="Question"

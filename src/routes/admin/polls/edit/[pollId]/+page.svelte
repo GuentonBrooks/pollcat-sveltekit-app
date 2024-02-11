@@ -2,7 +2,7 @@
 	import Header from '$lib/components/content/Header.svelte';
 	import SurfaceHeader from '$lib/components/content/SurfaceHeader.svelte';
 	import SurfaceContainer from '$lib/components/containers/SurfaceContainer.svelte';
-	import SurfaceTextInput from '$lib/components/inputs/SurfaceTextInput.svelte';
+	import TextInputWithLabel from '$lib/components/inputs/TextInputWithLabel.svelte';
 	import SurfaceDateTimeInput from '$lib/components/inputs/SurfaceDateTimeInput.svelte';
 	import SelectPollType from '$lib/components/inputs/SelectPollType.svelte';
 	import SelectPollDefaultAnswerType from '$lib/components/inputs/SelectPollDefaultAnswerType.svelte';
@@ -16,19 +16,24 @@
 	import isValidNewPollFormat from '$lib/validation/poll/isValidNewPollFormat';
 	import { createNewPollAsync } from '$lib/firebase/polls';
 	import navigate, { adminPollsPage } from '$lib/navigate';
-	import { selectedPollIdState } from '$lib/store/poll';
+	import { selectedPollIdState, selectedPollState } from '$lib/store/poll';
+	import TenColGridContainer from '$lib/components/containers/TenColGridContainer.svelte';
+	import AuthHeader from '$lib/components/content/AuthHeader.svelte';
+	import { onDestroy } from 'svelte';
+	import { watchPollById } from '$lib/firebase/polls';
+	import { page } from '$app/stores';
 
-	let name = '';
-	let type: PollType = 'vote';
-	let defaultAnswerType: PollDefaultAnswerType = 'employee';
-	let openingDateTime = '';
-	let closingDateTime = '';
+	let name = $selectedPollState.name;
+	let type: PollType = $selectedPollState.type;
+	let defaultAnswerType: PollDefaultAnswerType = $selectedPollState.defaultAnswerType;
+	let openingDateTime = $selectedPollState.openingDateTime;
+	let closingDateTime = $selectedPollState.closingDateTime;
 
 	let nameRef: HTMLInputElement;
 	let openingDateTimeRef: HTMLInputElement;
 	let closingDateTimeRef: HTMLInputElement;
 
-	const sumbitNewPoll = () => {
+	const submitPollEdit = () => {
 		const editPoll: PollFormat = {
 			name,
 			type,
@@ -36,24 +41,22 @@
 			openingDateTime,
 			closingDateTime
 		};
-		// if (!isValidNewPollFormat(editPoll)) return;
+		if (!isValidNewPollFormat(editPoll)) return;
 
 		// createNewPollAsync(editPoll).then((pollId) => selectedPollIdState.set(pollId));
 	};
 </script>
 
-<div class="grid grid-cols-10 m-5 mt-10 gap-10">
+<TenColGridContainer>
 	<div class="col-span-10">
-		<Header label="Edit Poll" />
+		<AuthHeader label="Edit Poll" />
 	</div>
 
 	<!-- Poll Name Input -->
-	<div
-		class="col-span-10 md:col-span-8 md:col-start-2 lg:col-span-6 lg:col-start-3 xl:col-span-4 xl:col-start-4"
-	>
+	<div class="col-span-10">
 		<SurfaceContainer>
 			<SurfaceHeader label="Enter Poll Name" />
-			<SurfaceTextInput
+			<TextInputWithLabel
 				bind:value={name}
 				bind:ref={nameRef}
 				placeholder="Poll Name"
@@ -116,6 +119,6 @@
 
 	<div class="col-span-10 place-self-stretch grid grid-cols-2 place-items-center">
 		<CancelButton on:click={() => navigate(adminPollsPage)} />
-		<SubmitButton on:click={sumbitNewPoll} />
+		<SubmitButton on:click={submitPollEdit} />
 	</div>
-</div>
+</TenColGridContainer>
