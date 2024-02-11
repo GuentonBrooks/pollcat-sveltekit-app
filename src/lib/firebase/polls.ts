@@ -50,7 +50,6 @@ export const fetchPollById = (pollId: string) =>
 export const watchAllPolls = () =>
 	onValue(dbRef, (snapshot) => {
 		const allPollsObject = snapshot.val() as PollsFirebaseFormat;
-		console.log(snapshot.val());
 		allPollState.set(allPollsObject);
 	});
 
