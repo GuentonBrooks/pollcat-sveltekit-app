@@ -25,7 +25,7 @@
 
 	<!-- Nav Rail -->
 	<svelte:fragment slot="sidebarLeft">
-		<div class="hidden md:block h-full py-32 bg-surface-100-800-token fixed top-0">
+		<div class="hidden md:block h-full py-24 bg-surface-100 dark:bg-surface-500 fixed top-0">
 			<AdminAppRail />
 		</div>
 	</svelte:fragment>

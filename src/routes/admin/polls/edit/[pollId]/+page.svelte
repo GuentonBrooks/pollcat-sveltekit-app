@@ -44,7 +44,7 @@
 
 <div class="grid grid-cols-10 m-5 mt-10 gap-10">
 	<div class="col-span-10">
-		<Header label="Create New Poll" />
+		<Header label="Edit Poll" />
 	</div>
 
 	<!-- Poll Name Input -->

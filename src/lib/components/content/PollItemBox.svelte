@@ -12,7 +12,7 @@
 
 <div class="variant-soft-secondary dark:variant-soft-secondary rounded-xl p-3">
 	<div class="flex justify-between items-center mb-4">
-		<h2 class="h2">{poll.name}</h2>
+		<h2 class="h2 text-surface-500 dark:text-secondary-800">{poll.name}</h2>
 		<EditFabSmall on:click={edit} />
 	</div>
 

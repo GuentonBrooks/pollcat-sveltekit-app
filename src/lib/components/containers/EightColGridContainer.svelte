@@ -1,3 +1,3 @@
-<div class="grid grid-cols-8 m-5 md:m-10 mt-10 gap-3">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-5 pb-2 mt-4">
 	<slot />
 </div>
