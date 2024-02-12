@@ -1,19 +1,20 @@
 <script lang="ts">
-	import SurfaceContainer from '$lib/components/containers/SurfaceContainer.svelte';
 	import TenColGridContainer from '$lib/components/containers/TenColGridContainer.svelte';
-	import PollItemBox from '$lib/components/content/PollItemBox.svelte';
+	import SurfaceContainer from '$lib/components/containers/SurfaceContainer.svelte';
+	import Header from '$lib/components/content/Header.svelte';
 	import SurfaceHeader from '$lib/components/content/SurfaceHeader.svelte';
-	import navigate, { adminPollsEditPage, adminPollsAddPage } from '$lib/navigate';
+	import PollItemBox from '$lib/components/content/PollItemBox.svelte';
+	import AddNewButton from '$lib/components/buttons/AddNewButton.svelte';
+
+	import { goto } from '$app/navigation';
+	import { adminPollsAddPage, adminPollsPage } from '$lib/pages';
 	import { allPollState, selectedPollIdState, selectedPollState } from '$lib/store/poll';
 	import type { PollFormat } from '$lib/types/poll';
-	import Header from '$lib/components/content/Header.svelte';
-	import AddNewButton from '$lib/components/buttons/AddNewButton.svelte';
-	import { goto } from '$app/navigation';
 
 	const onEditPoll = (pollId: string, poll: PollFormat) => {
 		selectedPollIdState.set(pollId);
 		selectedPollState.set(poll);
-		navigate(`${adminPollsEditPage}/${pollId}`);
+		goto(`${adminPollsPage}/${pollId}`);
 	};
 </script>
 

@@ -6,8 +6,9 @@
 
 	import { onMount } from 'svelte';
 	import { firebasePasswordSignUp } from '$lib/firebase/auth';
-	import { authLoginPage, gotoHomePage } from '$lib/navigate';
+	import { authLoginPage, homePage } from '$lib/pages';
 	import isValidSignupFormat from '$lib/validation/auth/isValidSignupFormat';
+	import { goto } from '$app/navigation';
 
 	let email = '';
 	let password = '';
@@ -23,7 +24,7 @@
 		const signupFormat = { email, password, passwordConfirm };
 		if (!isValidSignupFormat(signupFormat)) return;
 
-		firebasePasswordSignUp(email, password).then(() => gotoHomePage().catch(() => null));
+		firebasePasswordSignUp(email, password).then(() => goto(homePage).catch(() => null));
 	};
 </script>
 

@@ -6,7 +6,7 @@
 	const click = () => dispatch('click');
 </script>
 
-<button type="button" class="btn btn-lg variant-filled-primary w-full" on:click={click}>
+<button type="button" class="btn variant-filled-primary w-full" on:click={click}>
 	<IconPlus />
 	<span>Add New</span>
 </button>

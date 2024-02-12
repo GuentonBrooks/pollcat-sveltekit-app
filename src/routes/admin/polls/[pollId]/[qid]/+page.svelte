@@ -9,11 +9,12 @@
 	import SubmitButton from '$lib/components/buttons/SubmitButton.svelte';
 
 	import FlatAlert from '$lib/components/content/FlatAlert.svelte';
-	import navigate, { adminQuestionsPage, gotoAdminPollQuestionPage } from '$lib/navigate';
 	import SurfaceAddFab from '$lib/components/buttons/SurfaceAddFab.svelte';
 	import type { PollQuestionFormat } from '$lib/types/poll';
 	import { page } from '$app/stores';
 	import { editPollQuestionAsync } from '$lib/firebase/polls';
+	import { goto } from '$app/navigation';
+	import { adminPollsQuestionsPage } from '$lib/pages';
 
 	let question: string = '';
 	let isMultipleChoice: boolean = true;
@@ -34,7 +35,7 @@
 		if (!pollId) return;
 		if (!qid) return;
 
-		editPollQuestionAsync(pollId, qid, newQuestion).then(() => gotoAdminPollQuestionPage(pollId));
+		editPollQuestionAsync(pollId, qid, newQuestion).then(() => console.log(pollId));
 	};
 </script>
 
@@ -85,7 +86,7 @@
 	{/if}
 
 	<div class="col-span-10 place-self-stretch grid grid-cols-2 place-items-center">
-		<CancelButton on:click={() => navigate(adminQuestionsPage)} />
+		<CancelButton on:click={() => goto(adminPollsQuestionsPage)} />
 		<SubmitButton on:click={sumbitNewQuestion} />
 	</div>
 

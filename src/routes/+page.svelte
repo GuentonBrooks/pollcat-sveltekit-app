@@ -5,16 +5,17 @@
 
 	import { onMount } from 'svelte';
 	import { onAuthStateChanged } from 'firebase/auth';
-	import { gotoHomePage, gotoLoginPage } from '$lib/navigate';
+	import { authLoginPage, homePage } from '$lib/pages';
 	import { auth, setFirebaseUserState } from '$lib/firebase/auth';
+	import { goto } from '$app/navigation';
 
 	onMount(() =>
 		onAuthStateChanged(auth, (user) => {
 			if (user) {
 				setFirebaseUserState();
-				gotoHomePage();
+				goto(homePage);
 			} else {
-				gotoLoginPage();
+				goto(authLoginPage);
 			}
 		})
 	);
@@ -23,5 +24,5 @@
 <div class="h-full grid grid-cols-1 my-5 gap-20 justify-items-center content-center">
 	<Title />
 	<PollCatSvgLarge />
-	<PawButton on:click={gotoLoginPage} />
+	<PawButton on:click={() => goto(authLoginPage)} />
 </div>

@@ -4,16 +4,17 @@
 	import Header from '$lib/components/content/Header.svelte';
 	import PollItemBox from '$lib/components/content/PollItemBox.svelte';
 	import SurfaceHeader from '$lib/components/content/SurfaceHeader.svelte';
-	import navigate, { adminPollsAddPage, adminPollsEditPage } from '$lib/navigate';
+	import AddNewButton from '$lib/components/buttons/AddNewButton.svelte';
+
+	import { goto } from '$app/navigation';
+	import { adminPollsAddPage, adminPollsPage } from '$lib/pages';
 	import { allPollState, selectedPollIdState, selectedPollState } from '$lib/store/poll';
 	import type { PollFormat } from '$lib/types/poll';
-	import AddNewButton from '$lib/components/buttons/AddNewButton.svelte';
-	import { goto } from '$app/navigation';
 
 	const onEditPoll = (pollId: string, poll: PollFormat) => {
 		selectedPollIdState.set(pollId);
 		selectedPollState.set(poll);
-		navigate(`${adminPollsEditPage}/${pollId}`);
+		goto(`${adminPollsPage}/${pollId}`);
 	};
 </script>
 

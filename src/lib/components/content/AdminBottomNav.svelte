@@ -4,7 +4,7 @@
 	import NavPollButton from '../buttons/NavPollButton.svelte';
 	import NavUsersButton from '../buttons/NavUsersButton.svelte';
 	import NavFlagButton from '../buttons/NavFlagButton.svelte';
-	import { adminPage, adminPollsPage, adminRankingsPage, adminUsersPage } from '$lib/navigate';
+	import { adminPage, adminPollsPage, adminRankingsPage, adminUsersPage } from '$lib/pages';
 	import NavHomeButton from '../buttons/NavHomeButton.svelte';
 </script>
 

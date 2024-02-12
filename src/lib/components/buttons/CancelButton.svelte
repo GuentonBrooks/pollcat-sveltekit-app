@@ -6,7 +6,7 @@
 	const click = () => dispatch('click');
 </script>
 
-<button type="button" class="btn variant-filled-primary" on:click={click}>
+<button type="button" class="btn variant-glass-tertiary" on:click={click}>
 	<IconClose />
 	<span>Cancel</span>
 </button>

@@ -5,9 +5,10 @@
 	import { firebaseSendPasswordResetEmail } from '$lib/firebase/auth';
 
 	import { onMount } from 'svelte';
-	import { authLoginPage, gotoLoginPage } from '$lib/navigate';
+	import { authLoginPage } from '$lib/pages';
 	import { alertTextState, alertTypeState } from '$lib/store/alert';
 	import isValidEmailFormat from '$lib/validation/auth/isValidEmailFormat';
+	import { goto } from '$app/navigation';
 
 	let email = '';
 
@@ -23,7 +24,7 @@
 		if (!isValidEmailFormat(email)) return;
 
 		firebaseSendPasswordResetEmail(email)
-			.then(() => gotoLoginPage())
+			.then(() => goto(authLoginPage))
 			.catch(() => null);
 	};
 </script>

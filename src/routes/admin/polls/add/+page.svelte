@@ -1,5 +1,5 @@
 <script lang="ts">
-	import AuthHeader from '$lib/components/content/AuthHeader.svelte';
+	import TenColGridContainer from '$lib/components/containers/TenColGridContainer.svelte';
 	import SurfaceHeader from '$lib/components/content/SurfaceHeader.svelte';
 	import SurfaceContainer from '$lib/components/containers/SurfaceContainer.svelte';
 	import TextInputWithLabel from '$lib/components/inputs/TextInputWithLabel.svelte';
@@ -8,16 +8,18 @@
 	import SelectPollDefaultAnswerType from '$lib/components/inputs/SelectPollDefaultAnswerType.svelte';
 	import PollTypeDescription from '$lib/components/content/PollTypeDescription.svelte';
 	import PollDefaultAnswerTypeDescription from '$lib/components/content/PollDefaultAnswerTypeDescription.svelte';
-
 	import CancelButton from '$lib/components/buttons/CancelButton.svelte';
-	import SubmitButton from '$lib/components/buttons/SubmitButton.svelte';
+	import Header from '$lib/components/content/Header.svelte';
+	import FormButtonContainer from '$lib/components/containers/FormButtonContainer.svelte';
+	import ProceedButton from '$lib/components/buttons/ProceedButton.svelte';
+	import FinishButton from '$lib/components/buttons/FinishButton.svelte';
 
-	import type { PollFormat, PollDefaultAnswerType, PollType } from '$lib/types/poll';
-	import isValidPollFormat from '$lib/validation/poll/isValidPollFormat';
+	import { goto } from '$app/navigation';
 	import { createNewPollAsync } from '$lib/firebase/polls';
-	import navigate, { adminPollsPage } from '$lib/navigate';
+	import { adminPollsPage } from '$lib/pages';
 	import { selectedPollIdState } from '$lib/store/poll';
-	import TenColGridContainer from '$lib/components/containers/TenColGridContainer.svelte';
+	import isValidPollFormat from '$lib/validation/poll/isValidPollFormat';
+	import type { PollFormat, PollDefaultAnswerType, PollType } from '$lib/types/poll';
 
 	let name = '';
 	let type: PollType = 'vote';
@@ -29,7 +31,7 @@
 	let openingDateTimeRef: HTMLInputElement;
 	let closingDateTimeRef: HTMLInputElement;
 
-	const sumbitNewPoll = () => {
+	const onFinish = () => {
 		const newPoll: PollFormat = {
 			name,
 			type,
@@ -39,13 +41,18 @@
 		};
 		if (!isValidPollFormat(newPoll)) return;
 
-		createNewPollAsync(newPoll).then((pollId) => selectedPollIdState.set(pollId));
+		createNewPollAsync(newPoll)
+			.then((pollId) => {
+				selectedPollIdState.set(pollId);
+				goto(adminPollsPage);
+			})
+			.catch(() => {});
 	};
 </script>
 
 <TenColGridContainer>
-	<div class="col-span-10">
-		<AuthHeader label="Create New Poll" />
+	<div class="col-span-10 mb-10">
+		<Header label="Create New Poll" />
 	</div>
 
 	<!-- Poll Name Input -->
@@ -113,8 +120,9 @@
 		</SurfaceContainer>
 	</div>
 
-	<div class="col-span-10 place-self-stretch grid grid-cols-2 place-items-center">
-		<CancelButton on:click={() => navigate(adminPollsPage)} />
-		<SubmitButton on:click={sumbitNewPoll} />
-	</div>
+	<FormButtonContainer>
+		<CancelButton on:click={() => goto(adminPollsPage)} />
+		<FinishButton on:click={onFinish} />
+		<ProceedButton on:click={onFinish} />
+	</FormButtonContainer>
 </TenColGridContainer>

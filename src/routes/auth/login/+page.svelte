@@ -2,13 +2,13 @@
 	import AuthContainer from '$lib/components/containers/AuthContainer.svelte';
 	import EmailInput from '$lib/components/inputs/EmailInput.svelte';
 	import PasswordInput from '$lib/components/inputs/PasswordInput.svelte';
-	import LoginButton from '$lib/components/buttons/LoginButton.svelte';
 
 	import { onMount } from 'svelte';
 	import isValidLoginFormat from '$lib/validation/auth/isValidLoginFormat';
 	import { firebasePasswordSignIn } from '$lib/firebase/auth';
-	import { authForgotPage, authSignupPage, gotoHomePage } from '$lib/navigate';
+	import { authForgotPage, authSignupPage, homePage } from '$lib/pages';
 	import PawButton from '$lib/components/buttons/PawButton.svelte';
+	import { goto } from '$app/navigation';
 
 	let email = '';
 	let password = '';
@@ -23,7 +23,7 @@
 		if (!isValidLoginFormat(loginFormat)) return;
 
 		firebasePasswordSignIn(email, password)
-			.then(() => gotoHomePage())
+			.then(() => goto(homePage))
 			.catch(() => null);
 	};
 </script>

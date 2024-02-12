@@ -1,4 +1,6 @@
 <script lang="ts">
+	import TenColGridContainer from '$lib/components/containers/TenColGridContainer.svelte';
+	import Header from '$lib/components/content/Header.svelte';
 	import SurfaceHeader from '$lib/components/content/SurfaceHeader.svelte';
 	import SurfaceContainer from '$lib/components/containers/SurfaceContainer.svelte';
 	import TextInputWithLabel from '$lib/components/inputs/TextInputWithLabel.svelte';
@@ -7,18 +9,16 @@
 	import SelectPollDefaultAnswerType from '$lib/components/inputs/SelectPollDefaultAnswerType.svelte';
 	import PollTypeDescription from '$lib/components/content/PollTypeDescription.svelte';
 	import PollDefaultAnswerTypeDescription from '$lib/components/content/PollDefaultAnswerTypeDescription.svelte';
-
 	import CancelButton from '$lib/components/buttons/CancelButton.svelte';
 	import SubmitButton from '$lib/components/buttons/SubmitButton.svelte';
 
-	import type { PollFormat, PollDefaultAnswerType, PollType } from '$lib/types/poll';
-	import isValidPollFormat from '$lib/validation/poll/isValidPollFormat';
-	import { editPollByIdAsync } from '$lib/firebase/polls';
-	import navigate, { adminPollsPage } from '$lib/navigate';
-	import { selectedPollState } from '$lib/store/poll';
-	import TenColGridContainer from '$lib/components/containers/TenColGridContainer.svelte';
-	import AuthHeader from '$lib/components/content/AuthHeader.svelte';
+	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { editPollByIdAsync } from '$lib/firebase/polls';
+	import { adminPollsPage } from '$lib/pages';
+	import { selectedPollState } from '$lib/store/poll';
+	import isValidPollFormat from '$lib/validation/poll/isValidPollFormat';
+	import type { PollFormat, PollDefaultAnswerType, PollType } from '$lib/types/poll';
 
 	let name = $selectedPollState.name;
 	let type: PollType = $selectedPollState.type;
@@ -46,7 +46,7 @@
 
 <TenColGridContainer>
 	<div class="col-span-10">
-		<AuthHeader label="Edit Poll" />
+		<Header label="Edit Poll" />
 	</div>
 
 	<!-- Poll Name Input -->
@@ -115,7 +115,7 @@
 	</div>
 
 	<div class="col-span-10 place-self-stretch grid grid-cols-2 place-items-center">
-		<CancelButton on:click={() => navigate(adminPollsPage)} />
+		<CancelButton on:click={() => goto(adminPollsPage)} />
 		<SubmitButton on:click={submitPollEdit} />
 	</div>
 </TenColGridContainer>

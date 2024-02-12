@@ -1,14 +1,12 @@
 <script lang="ts">
-	import { gotoAdminPollQuestionEditPage } from '$lib/navigate';
 	import AuthHeader from '$lib/components/content/AuthHeader.svelte';
 	import { selectedPollState } from '$lib/store/poll';
 	import NewQuestionButton from '$lib/components/buttons/NewQuestionButton.svelte';
 	import { page } from '$app/stores';
 	import { createNewPollQuestionAsync } from '$lib/firebase/polls';
 	import type { PollQuestionFormat } from '$lib/types/poll';
-	import type { FirebaseKeyValueObjectFormat } from '$lib/types/auth';
 
-	let questions: FirebaseKeyValueObjectFormat = {};
+	let questions = {};
 	selectedPollState.subscribe((state) => (questions = state.questions || {}));
 
 	const newPollQuestion: PollQuestionFormat = {
@@ -19,8 +17,9 @@
 
 	const createNewQuestion = () =>
 		createNewPollQuestionAsync($page.params.pollId, newPollQuestion).then((qid) =>
-			gotoAdminPollQuestionEditPage($page.params.pollId, qid)
+			console.log(qid)
 		);
+	// gotoAdminPollQuestionEditPage($page.params.pollId, qid)
 </script>
 
 <div class="grid grid-cols-10 my-10 mx-5 gap-10">

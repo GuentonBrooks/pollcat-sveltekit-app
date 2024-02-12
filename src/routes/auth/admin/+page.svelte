@@ -6,8 +6,9 @@
 
 	import { onMount } from 'svelte';
 	import { firebaseAdminSignIn } from '$lib/firebase/auth';
-	import { authForgotPage, authLoginPage, gotoAdminPage } from '$lib/navigate';
+	import { adminPage, authForgotPage, authLoginPage } from '$lib/pages';
 	import isValidLoginFormat from '$lib/validation/auth/isValidLoginFormat';
+	import { goto } from '$app/navigation';
 
 	let email = '';
 	let password = '';
@@ -22,7 +23,7 @@
 		if (!isValidLoginFormat(loginFormat)) return;
 
 		firebaseAdminSignIn(email, password)
-			.then(() => gotoAdminPage())
+			.then(() => goto(adminPage))
 			.catch(() => null);
 	};
 </script>

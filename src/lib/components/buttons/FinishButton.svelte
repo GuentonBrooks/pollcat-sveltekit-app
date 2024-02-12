@@ -1,11 +1,12 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
-	import IconEdit from '~icons/mdi/edit';
+	import IconCheck from '~icons/mdi/check';
 
 	const dispatch = createEventDispatcher();
 	const click = () => dispatch('click');
 </script>
 
-<button type="button" class="btn variant-soft-tertiary shadow rounded-lg" on:click={click}>
-	<IconEdit />
+<button type="button" class="btn variant-filled-primary" on:click={click}>
+	<IconCheck />
+	<span>Finish</span>
 </button>
