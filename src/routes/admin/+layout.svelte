@@ -1,12 +1,11 @@
 <script>
-	import AdminAppRail from '$lib/components/navigation/AdminAppRail.svelte';
-	import AdminBottomNav from '$lib/components/navigation/AdminBottomNav.svelte';
-	import AdminAppBar from '$lib/components/navigation/AdminAppBar.svelte';
+	import AdminAppRail from '$lib/components/content/AdminAppRail.svelte';
+	import AdminBottomNav from '$lib/components/content/AdminBottomNav.svelte';
+	import AdminAppBar from '$lib/components/content/AdminAppBar.svelte';
 	import FlatAlert from '$lib/components/content/FlatAlert.svelte';
 
 	import { onDestroy, onMount } from 'svelte';
 	import { AppShell } from '@skeletonlabs/skeleton';
-	import { isNavOnState } from '$lib/store/alert';
 	import { watchAllPolls } from '$lib/firebase/polls';
 
 	let unWatchPolls = () => {};
