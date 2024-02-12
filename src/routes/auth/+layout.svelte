@@ -4,32 +4,17 @@
 	import { authAdminLoginPage } from '$lib/pages';
 	import GuentonLogo from '$lib/components/images/GuentonLogo.svelte';
 	import PollCatSvgLarge from '$lib/components/images/PollCatSvgLarge.svelte';
+	import AuthAppBar from '$lib/components/content/AuthAppBar.svelte';
 </script>
 
 <AppShell>
+	<!-- App Bar -->
 	<svelte:fragment slot="header">
-		<AppBar>
-			<svelte:fragment slot="lead">
-				<strong class="text-xl text-primary-900 dark:text-token">{'<PollCat />'}</strong>
-			</svelte:fragment>
-			<svelte:fragment slot="trail">
-				<!-- Link Buttons -->
-				<a
-					class="btn btn-sm variant-soft-primary"
-					href="https://github.com/GuentonBrooks/pollcat-sveltekit-app"
-					target="_blank"
-					rel="noreferrer"
-				>
-					GitHub
-				</a>
-				<a class="btn btn-sm variant-soft-primary" href={authAdminLoginPage} rel="noreferrer">
-					Admin
-				</a>
-
-				<!-- Light/Dark Switch -->
-				<LightSwitch />
-			</svelte:fragment>
-		</AppBar>
+		<div class="fixed top-0 left-0 right-0">
+			<div class="bg-top-texture bg-cover rounded-b-3xl">
+				<AuthAppBar />
+			</div>
+		</div>
 	</svelte:fragment>
 
 	<div class="h-full grid grid-cols-1 md:grid-cols-2">
@@ -41,7 +26,7 @@
 
 	<svelte:fragment slot="footer">
 		<div class="flex justify-end">
-			<div class="w-20">
+			<div class="w-24">
 				<GuentonLogo />
 			</div>
 		</div>
