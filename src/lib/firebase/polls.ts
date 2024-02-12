@@ -1,5 +1,5 @@
 import { db } from './app';
-import { child, get, onValue, push, ref, set } from 'firebase/database';
+import { child, get, onValue, push, ref, set, update } from 'firebase/database';
 
 import type { PollFormat, PollQuestionFormat, PollsFirebaseFormat } from '$lib/types/poll';
 import { alertTextState, alertTypeState } from '$lib/store/alert';
@@ -21,6 +21,19 @@ export const createNewPollAsync = (newPoll: PollFormat) =>
 			alertTypeState.set('success');
 			alertTextState.set(`New Poll Created Successfully ID: ${id}`);
 			return id;
+		})
+		.catch((error) => {
+			alertTypeState.set('error');
+			alertTextState.set(error.code || error.message);
+			throw error;
+		});
+
+/** FIREBASE - Update a Poll in the Database by Id */
+export const editPollByIdAsync = (id: string, poll: PollFormat) =>
+	update(child(dbRef, id), poll)
+		.then(() => {
+			alertTypeState.set('success');
+			alertTextState.set(`Poll Edited Successfully ID: ${id}`);
 		})
 		.catch((error) => {
 			alertTypeState.set('error');

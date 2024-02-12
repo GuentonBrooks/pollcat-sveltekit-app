@@ -13,7 +13,7 @@
 	import SubmitButton from '$lib/components/buttons/SubmitButton.svelte';
 
 	import type { PollFormat, PollDefaultAnswerType, PollType } from '$lib/types/poll';
-	import isValidNewPollFormat from '$lib/validation/poll/isValidNewPollFormat';
+	import isValidPollFormat from '$lib/validation/poll/isValidPollFormat';
 	import { createNewPollAsync } from '$lib/firebase/polls';
 	import navigate, { adminPollsPage } from '$lib/navigate';
 	import { selectedPollIdState } from '$lib/store/poll';
@@ -37,7 +37,7 @@
 			openingDateTime,
 			closingDateTime
 		};
-		if (!isValidNewPollFormat(newPoll)) return;
+		if (!isValidPollFormat(newPoll)) return;
 
 		createNewPollAsync(newPoll).then((pollId) => selectedPollIdState.set(pollId));
 	};

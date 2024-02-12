@@ -7,7 +7,6 @@
 	import IconStop from '~icons/mdi/stop';
 	import IconChatQuestion from '~icons/mdi/chat-question';
 	import IconClose from '~icons/mdi/close';
-
 	import { alertTextState, alertTypeState } from '$lib/store/alert';
 
 	const dismissAlert = () => {
@@ -17,8 +16,8 @@
 </script>
 
 {#if $alertTypeState === 'info' && $alertTextState}
-	<aside class="alert variant-soft m-3 w-full" transition:fade|local={{ duration: 200 }}>
-		<div class="btn-icon variant-soft-primary">
+	<aside class="alert variant-filled shadow m-3 w-full" transition:fade|local={{ duration: 200 }}>
+		<div class="btn-icon variant-filled-primary">
 			<IconInformation />
 		</div>
 
@@ -31,8 +30,8 @@
 		</div>
 	</aside>
 {:else if $alertTypeState === 'success' && $alertTextState}
-	<aside class="alert variant-soft-success m-3 w-full" transition:fade|local={{ duration: 200 }}>
-		<div class="btn-icon variant-soft-success">
+	<aside class="alert variant-filled-success m-3 w-full" transition:fade|local={{ duration: 200 }}>
+		<div class="btn-icon variant-filled-success">
 			<IconPlay />
 		</div>
 
@@ -45,8 +44,11 @@
 		</div>
 	</aside>
 {:else if $alertTypeState === 'warning' && $alertTextState}
-	<aside class="alert variant-soft-warning m-3 w-full" transition:fade|local={{ duration: 200 }}>
-		<div class="btn-icon variant-soft-warning">
+	<aside
+		class="alert variant-filled-warning shadow-2xl m-3 w-full"
+		transition:fade|local={{ duration: 200 }}
+	>
+		<div class="btn-icon variant-filled-warning">
 			<IconPause />
 		</div>
 
@@ -59,8 +61,8 @@
 		</div>
 	</aside>
 {:else if $alertTypeState === 'error' && $alertTextState}
-	<aside class="alert variant-soft-error m-3 w-full" transition:fade|local={{ duration: 200 }}>
-		<div class="btn-icon variant-soft-error">
+	<aside class="alert variant-filled-error m-3 w-full" transition:fade|local={{ duration: 200 }}>
+		<div class="btn-icon variant-filled-error">
 			<IconStop />
 		</div>
 
@@ -73,7 +75,7 @@
 		</div>
 	</aside>
 {:else if $alertTextState}
-	<aside class="alert variant-soft m-3 w-full" transition:fade|local={{ duration: 200 }}>
+	<aside class="alert variant-filled shadow m-3 w-full" transition:fade|local={{ duration: 200 }}>
 		<div class="btn-icon">
 			<IconChatQuestion />
 		</div>

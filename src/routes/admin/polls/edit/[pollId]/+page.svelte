@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Header from '$lib/components/content/Header.svelte';
 	import SurfaceHeader from '$lib/components/content/SurfaceHeader.svelte';
 	import SurfaceContainer from '$lib/components/containers/SurfaceContainer.svelte';
 	import TextInputWithLabel from '$lib/components/inputs/TextInputWithLabel.svelte';
@@ -13,14 +12,12 @@
 	import SubmitButton from '$lib/components/buttons/SubmitButton.svelte';
 
 	import type { PollFormat, PollDefaultAnswerType, PollType } from '$lib/types/poll';
-	import isValidNewPollFormat from '$lib/validation/poll/isValidNewPollFormat';
-	import { createNewPollAsync } from '$lib/firebase/polls';
+	import isValidPollFormat from '$lib/validation/poll/isValidPollFormat';
+	import { editPollByIdAsync } from '$lib/firebase/polls';
 	import navigate, { adminPollsPage } from '$lib/navigate';
-	import { selectedPollIdState, selectedPollState } from '$lib/store/poll';
+	import { selectedPollState } from '$lib/store/poll';
 	import TenColGridContainer from '$lib/components/containers/TenColGridContainer.svelte';
 	import AuthHeader from '$lib/components/content/AuthHeader.svelte';
-	import { onDestroy } from 'svelte';
-	import { watchPollById } from '$lib/firebase/polls';
 	import { page } from '$app/stores';
 
 	let name = $selectedPollState.name;
@@ -41,9 +38,9 @@
 			openingDateTime,
 			closingDateTime
 		};
-		if (!isValidNewPollFormat(editPoll)) return;
+		if (!isValidPollFormat(editPoll)) return;
 
-		// createNewPollAsync(editPoll).then((pollId) => selectedPollIdState.set(pollId));
+		editPollByIdAsync($page.params.pollId, editPoll).catch((error) => console.error(error));
 	};
 </script>
 
@@ -69,7 +66,7 @@
 	<div class="col-span-10 md:col-span-5 xl:col-span-5">
 		<SurfaceContainer>
 			<SurfaceHeader label="Select Poll Type" />
-			<SelectPollType value={type} />
+			<SelectPollType bind:value={type} />
 		</SurfaceContainer>
 	</div>
 	<div class="hidden md:block md:col-span-5">
@@ -83,7 +80,7 @@
 	<div class="col-span-10 md:col-span-5 xl:col-span-5">
 		<SurfaceContainer>
 			<SurfaceHeader label="Select Default Answer Model" />
-			<SelectPollDefaultAnswerType value={defaultAnswerType} />
+			<SelectPollDefaultAnswerType bind:value={defaultAnswerType} />
 		</SurfaceContainer>
 	</div>
 	<div class="hidden md:block md:col-span-5">
