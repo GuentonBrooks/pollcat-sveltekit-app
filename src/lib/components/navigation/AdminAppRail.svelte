@@ -8,7 +8,12 @@
 	import NavHomeButton from '../buttons/NavHomeButton.svelte';
 </script>
 
-<AppRail background="bg-surface-100 dark:bg-surface-500">
+<AppRail
+	background="bg-surface-50 dark:bg-surface-900 shadow-xl"
+	active="text-secondary-500 font-bold"
+	hover="hover:variant-soft-secondary"
+	width="w-24"
+>
 	<AppRailAnchor href={adminPage} selected={$page.url.pathname === adminPage}>
 		<svelte:fragment slot="lead"><NavHomeButton /></svelte:fragment>
 		<span>Home</span>

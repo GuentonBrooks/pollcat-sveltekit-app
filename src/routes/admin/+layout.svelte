@@ -19,18 +19,22 @@
 	<!-- App Bar -->
 	<svelte:fragment slot="header">
 		<div class="fixed top-0 left-0 right-0">
-			<AdminAppBar />
+			<div class="bg-top-texture bg-cover rounded-b-3xl md:rounded-bl-none">
+				<AdminAppBar />
+			</div>
 		</div>
 	</svelte:fragment>
 
 	<!-- Nav Rail -->
 	<svelte:fragment slot="sidebarLeft">
-		<div class="hidden md:block h-full py-24 bg-surface-100 dark:bg-surface-500 fixed top-0">
-			<AdminAppRail />
+		<div class="hidden md:block h-full fixed">
+			<div class="h-full pt-24">
+				<AdminAppRail />
+			</div>
 		</div>
 	</svelte:fragment>
 
-	<div class="pt-28 pb-24 md:pb-4 md:pt-32 md:pl-20">
+	<div class="pt-28 pb-24 md:pb-4 md:pt-32 md:pl-24">
 		<slot />
 	</div>
 

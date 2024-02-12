@@ -6,6 +6,10 @@
 	const click = () => dispatch('click');
 </script>
 
-<button type="button" class="btn-icon btn-icon-lg hover:animate-pulse" on:click={click}>
+<button
+	type="button"
+	class="btn-icon btn-icon-lg text-surface-50 hover:animate-pulse"
+	on:click={click}
+>
 	<IconMenu />
 </button>

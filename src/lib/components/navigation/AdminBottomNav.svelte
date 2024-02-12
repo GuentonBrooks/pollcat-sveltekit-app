@@ -10,12 +10,12 @@
 
 <TabGroup
 	justify="justify-center"
-	active="variant-filled-primary"
-	hover="hover:variant-soft-primary"
+	active="text-secondary-500 font-bold"
+	hover="hover:variant-soft-secondary"
 	flex="flex-1 lg:flex-none"
 	rounded=""
 	border=""
-	class="bg-surface-100 dark:bg-surface-500 w-full"
+	class="bg-surface-50 dark:bg-surface-900 w-full rounded-t-3xl"
 >
 	<TabAnchor href={adminPage} selected={$page.url.pathname === adminPage}>
 		<svelte:fragment slot="lead"><NavHomeButton /></svelte:fragment>

@@ -6,7 +6,7 @@
 	const logout = () => firebaseSignOut().then(() => gotoRootPage());
 </script>
 
-<button type="button" class="btn btn-sm variant-filled-primary" on:click={logout}>
+<button type="button" class="btn variant-glass" on:click={logout}>
 	<IconLogout />
 	<span>Logout</span>
 </button>

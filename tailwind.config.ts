@@ -12,7 +12,13 @@ export default {
 		join(require.resolve('@skeletonlabs/skeleton'), '../**/*.{html,js,svelte,ts}')
 	],
 	theme: {
-		extend: {}
+		extend: {
+			backgroundImage: {
+				'full-texture': "url('/img/full-bg.png')",
+				'side-texture': "url('/img/side-bg.png')",
+				'top-texture': "url('/img/top-bg.png')"
+			}
+		}
 	},
 	plugins: [
 		forms,
