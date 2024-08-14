@@ -1,11 +1,11 @@
 {
 	"editor.formatOnType": true,
-  "editor.formatOnPaste": true,
-  "editor.formatOnSave": true,
+	"editor.formatOnPaste": true,
+	"editor.formatOnSave": true,
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
-  "workbench.iconTheme": "material-icon-theme",
-  "workbench.colorTheme": "Atlantic Night",
-  "workbench.colorCustomizations": {
+	"workbench.iconTheme": "material-icon-theme",
+	"workbench.colorTheme": "Atlantic Night",
+	"workbench.colorCustomizations": {
 		"activityBar.activeBackground": "#ff6433",
 		"activityBar.background": "#ff6433",
 		"activityBar.foreground": "#15202b",
@@ -24,10 +24,8 @@
 		"titleBar.inactiveBackground": "#ff3d0099",
 		"titleBar.inactiveForeground": "#e7e7e799"
 	},
-  "peacock.color": "#ff3d00",
-	"prettier.documentSelectors": [
-		"**/*.svelte"
-	],
+	"peacock.color": "#ff3d00",
+	"prettier.documentSelectors": ["**/*.svelte"],
 	"tailwindCSS.classAttributes": [
 		"class",
 		"accent",
@@ -142,5 +140,8 @@
 		"transition",
 		"width",
 		"zIndex"
-	]
+	],
+	"[dotenv]": {
+		"editor.defaultFormatter": "foxundermoon.shell-format"
+	}
 }

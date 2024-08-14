@@ -4,7 +4,7 @@
 	import NavMenuButton from '../buttons/NavMenuButton.svelte';
 	import LogoutButton from '../buttons/LogoutButton.svelte';
 
-	import { isNavOnState } from '$lib/store/alert';
+	import { isNavOnState } from '$lib/store';
 	import PollCatSvgSmall from '../images/PollCatSvgSmall.svelte';
 </script>
 

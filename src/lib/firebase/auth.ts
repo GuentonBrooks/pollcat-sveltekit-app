@@ -7,11 +7,11 @@ import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 	sendPasswordResetEmail,
-	signOut
+	signOut,
 } from 'firebase/auth';
 import { child, get, ref, set } from 'firebase/database';
 
-import { alertTextState, alertTypeState } from '$lib/store/alert';
+import { alertTextState, alertTypeState } from '$lib/store';
 import { emailState, firstNameState, lastNameState, userIdState } from '$lib/store/auth';
 import type { FirebaseDatabaseUserFormat, FirebaseUserShortInfoFormat } from '$lib/types/auth';
 import { errorInvalidAdmin } from '$lib/validation/error/pollcat';
@@ -23,10 +23,20 @@ export const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
 /** Sign in with Google redirect */
-export const googleSignInRedirect = () => signInWithRedirect(auth, provider);
+export const googleSignInRedirect = () =>
+	signInWithRedirect(auth, provider).catch((error) => {
+		alertTypeState.set('error');
+		alertTextState.set(error.code);
+		throw error;
+	});
 
 /** Sign in with Google popup */
-export const googleSignInPopup = () => signInWithPopup(auth, provider);
+export const googleSignInPopup = () =>
+	signInWithPopup(auth, provider).catch((error) => {
+		alertTypeState.set('error');
+		alertTextState.set(error.code);
+		throw error;
+	});
 
 /** Sign Out */
 export const firebaseSignOut = () =>
