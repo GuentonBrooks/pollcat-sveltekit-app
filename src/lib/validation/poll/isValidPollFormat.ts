@@ -1,7 +1,7 @@
 import isEmpty from 'validator/lib/isEmpty';
 import isAscii from 'validator/lib/isAscii';
 
-import { alertTextState, alertTypeState } from '$lib/store/alert';
+import { alertTextState, alertTypeState } from '$lib/store';
 import type { PollFormat } from '$lib/types/poll';
 
 /**

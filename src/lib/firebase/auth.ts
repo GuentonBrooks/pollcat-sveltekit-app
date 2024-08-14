@@ -9,7 +9,7 @@ import {
 	sendPasswordResetEmail,
 	signOut,
 } from 'firebase/auth';
-import { child, get, ref, set } from 'firebase/database';
+import { child, get, ref, remove, set } from 'firebase/database';
 
 import { alertTextState, alertTypeState } from '$lib/store';
 import { emailState, firstNameState, lastNameState, userIdState } from '$lib/store/auth';
@@ -128,7 +128,29 @@ export const getFirebaseUserLongInfo = () => auth.currentUser;
 
 /** Stores the current authenticated user in firebase Reat-Time DB */
 export const storeFirebaseUserAsync = () =>
-	set(ref(db, `users/${getFirebaseUserId()}`), { ...getFirebaseUserShortInfo(), isAdmin: false });
+	set(ref(db, `users/${getFirebaseUserId()}`), { ...getFirebaseUserShortInfo(), isAdmin: false })
+		.then(() => {
+			alertTypeState.set('success');
+			alertTextState.set('Auth/DB: ' + 'User Information Successfully Stored');
+		})
+		.catch((error) => {
+			alertTypeState.set('error');
+			alertTextState.set('Auth/DB: ' + error.message);
+			throw error;
+		});
+
+/** Deletes the selected user from firebase Reat-Time DB */
+export const removeFirebaseUserAsync = (uid: string) =>
+	remove(ref(db, `users/${uid}`))
+		.then(() => {
+			alertTypeState.set('info');
+			alertTextState.set('Auth/DB: ' + 'User Information Successfully Purged');
+		})
+		.catch((error) => {
+			alertTypeState.set('error');
+			alertTextState.set('Auth/DB: ' + error.message);
+			throw error;
+		});
 
 /** Fetches the Current User's info from the DB */
 export const fetchFirebaseUserInfo = () =>
@@ -140,6 +162,8 @@ export const fetchFirebaseUserInfo = () =>
 			return snapshot.val() as FirebaseDatabaseUserFormat;
 		})
 		.catch((error) => {
+			alertTypeState.set('error');
+			alertTextState.set('Auth/DB: ' + error.message);
 			throw error;
 		});
 
@@ -147,8 +171,11 @@ export const fetchFirebaseUserInfo = () =>
 export const setFirebaseUserState = () => {
 	const user = getFirebaseUserLongInfo();
 
-	if (!user) return;
-	userIdState.set(user.uid);
+	if (!user) {
+		alertTypeState.set('error');
+		alertTextState.set('AUTH: Failed to set User State');
+		return;
+	}
 
 	if (!user.email) return;
 	emailState.set(user.email);

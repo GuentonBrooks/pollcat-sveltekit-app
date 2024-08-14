@@ -4,7 +4,9 @@
 	import NavMenuButton from '../buttons/NavMenuButton.svelte';
 	import LogoutButton from '../buttons/LogoutButton.svelte';
 
-	import { isNavOnState } from '$lib/store/alert';
+	import { isDarkModeState, isNavOnState } from '$lib/store';
+
+	const toggleDarkMode = () => isDarkModeState.set(!$isDarkModeState);
 </script>
 
 <AppBar
@@ -16,7 +18,12 @@
 		<strong class="text-xl ml-6 text-surface-50">Admin</strong>
 	</svelte:fragment>
 	<svelte:fragment slot="trail">
-		<LightSwitch ring="border-none" fillDark="fill-tertiary-500" fillLight="fill-tertiary-400" />
+		<LightSwitch
+			ring="border-none"
+			fillDark="fill-tertiary-500"
+			fillLight="fill-tertiary-400"
+			on:click={toggleDarkMode}
+		/>
 
 		<LogoutButton />
 	</svelte:fragment>

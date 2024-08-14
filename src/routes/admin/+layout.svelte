@@ -40,7 +40,7 @@
 	<!-- Flat Alert Container -->
 	<svelte:fragment slot="pageFooter">
 		<!-- <div class="mr-8 ml-2 pb-28 md:pb-4 md:pl-20"> -->
-		<div class="mr-8 ml-2 fixed bottom-24 left-0 right-0 md:bottom-4 md:left-20">
+		<div class="fixed mx-4 bottom-24 left-0 right-0 md:bottom-4 md:left-24">
 			<FlatAlert />
 		</div>
 	</svelte:fragment>

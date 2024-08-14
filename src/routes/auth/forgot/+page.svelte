@@ -6,7 +6,7 @@
 
 	import { onMount } from 'svelte';
 	import { authLoginPage } from '$lib/pages';
-	import { alertTextState, alertTypeState } from '$lib/store/alert';
+	import { alertTextState, alertTypeState } from '$lib/store';
 	import isValidEmailFormat from '$lib/validation/auth/isValidEmailFormat';
 	import { goto } from '$app/navigation';
 

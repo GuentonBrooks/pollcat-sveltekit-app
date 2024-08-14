@@ -2,11 +2,25 @@ import { db } from './app';
 import { child, get, onValue, push, ref, set, update } from 'firebase/database';
 
 import type { PollFormat, PollQuestionFormat, PollsFirebaseFormat } from '$lib/types/poll';
-import { alertTextState, alertTypeState } from '$lib/store/alert';
+import { alertTextState, alertTypeState } from '$lib/store';
 import { errorIdNotReceived, errorItemNotFoundById } from '$lib/validation/error/pollcat';
 import { allPollState, selectedPollState } from '$lib/store/poll';
 
 const dbRef = ref(db, 'polls/');
+
+export const getAllPollsRef = () => child(ref(db), 'polls/');
+export const getPollRef = (pollKey: string) => child(ref(db), `polls/${pollKey}`);
+export const getAllPollQuestionsRef = (pollKey: string) =>
+	child(ref(db), `polls/${pollKey}/questions/`);
+export const getPollQuestionRef = (pollKey: string, questionKey: string) =>
+	child(ref(db), `polls/${pollKey}/questions/${questionKey}`);
+
+export const getAllPollResponsesRef = () => child(ref(db), 'poll-responses/');
+export const getAllUserPollResponsesRef = (uid: string) => child(ref(db), `poll-responses/${uid}`);
+export const getUserPollResponseRef = (uid: string, pollKey: string) =>
+	child(ref(db), `poll-responses/${uid}/${pollKey}`);
+export const getUserPollQuestionResponseRef = (uid: string, pollKey: string, questionKey: string) =>
+	child(ref(db), `poll-responses/${uid}/${pollKey}/${questionKey}`);
 
 /** FIREBASE - Stores a new Poll in the Database and returns the Reference Number */
 export const createNewPollAsync = (newPoll: PollFormat) =>
@@ -19,31 +33,38 @@ export const createNewPollAsync = (newPoll: PollFormat) =>
 			}
 
 			alertTypeState.set('success');
-			alertTextState.set(`New Poll Created Successfully ID: ${id}`);
+			alertTextState.set(`Polls/DB: New Poll Created Successfully`);
 			return id;
 		})
 		.catch((error) => {
 			alertTypeState.set('error');
-			alertTextState.set(error.code || error.message);
+			alertTextState.set('Polls/DB: ' + error.code || error.message);
 			throw error;
 		});
 
 /** FIREBASE - Update a Poll in the Database by Id */
-export const editPollByIdAsync = (id: string, poll: PollFormat) =>
-	update(child(dbRef, id), poll)
+export const editPollByIdAsync = (pollKey: string, poll: PollFormat) => {
+	if (!pollKey) {
+		alertTypeState.set('error');
+		alertTextState.set('Logs/DB: ' + 'Failed to edit the Poll could not find the Poll key');
+		throw new Error('Failed to edit the Poll could not find the Poll key');
+	}
+
+	update(getPollRef(pollKey), poll)
 		.then(() => {
 			alertTypeState.set('success');
-			alertTextState.set(`Poll Edited Successfully ID: ${id}`);
+			alertTextState.set(`Polls/DB: Poll Edited Successfully`);
 		})
 		.catch((error) => {
 			alertTypeState.set('error');
-			alertTextState.set(error.code || error.message);
+			alertTextState.set('Polls/DB: ' + error.code || error.message);
 			throw error;
 		});
+};
 
 /** FIREBASE - Fetches a poll object by the given PollId */
-export const fetchPollById = (pollId: string) =>
-	get(child(dbRef, pollId))
+export const fetchPollById = (pollKey: string) =>
+	get(getPollRef(pollKey))
 		.then((snapshot) => {
 			if (!snapshot.exists()) {
 				throw new Error(errorItemNotFoundById);
@@ -97,7 +118,7 @@ export const createNewPollQuestionAsync = (pollId: string, newPollQuestion: Poll
 export const editPollQuestionAsync = (
 	pollId: string,
 	qid: string,
-	pollQuestion: PollQuestionFormat
+	pollQuestion: PollQuestionFormat,
 ) =>
 	set(child(dbRef, `${pollId}/questions/${qid}`), pollQuestion).then(() => {
 		alertTypeState.set('success');

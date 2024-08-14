@@ -21,7 +21,7 @@
 		class="alert variant-soft shadow-xl w-full"
 		in:scale={{ duration: 500, opacity: 0.5, start: 0.5 }}
 	>
-		<div class="btn-icon variant-soft-primary">
+		<div class="btn-icon variant-glass-primary">
 			<IconInformation />
 		</div>
 
@@ -35,10 +35,10 @@
 	</aside>
 {:else if $alertTypeState === 'success' && $alertTextState}
 	<aside
-		class="alert variant-soft-success shadow-xl w-full"
+		class="alert variant-glass-success shadow-xl w-full"
 		in:scale={{ duration: 500, opacity: 0.5, start: 0.5 }}
 	>
-		<div class="btn-icon variant-soft-success">
+		<div class="btn-icon variant-glass-success">
 			<IconPlay />
 		</div>
 
@@ -52,10 +52,10 @@
 	</aside>
 {:else if $alertTypeState === 'warning' && $alertTextState}
 	<aside
-		class="alert variant-soft-warning shadow-xl w-full"
+		class="alert variant-glass-warning shadow-xl w-full"
 		in:scale={{ duration: 500, opacity: 0.5, start: 0.5 }}
 	>
-		<div class="btn-icon variant-soft-warning">
+		<div class="btn-icon variant-glass-warning">
 			<IconPause />
 		</div>
 
@@ -69,10 +69,10 @@
 	</aside>
 {:else if $alertTypeState === 'error' && $alertTextState}
 	<aside
-		class="alert variant-soft-error shadow-xl w-full"
+		class="alert variant-glass-error shadow-xl w-full"
 		in:scale={{ duration: 500, opacity: 0.5, start: 0.5 }}
 	>
-		<div class="btn-icon variant-soft-error">
+		<div class="btn-icon variant-glass-error">
 			<IconStop />
 		</div>
 
