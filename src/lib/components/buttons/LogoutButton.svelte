@@ -1,7 +1,7 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { firebaseSignOut } from '$lib/firebase/auth';
-	import { rootPage } from '$lib/pages';
+	import { rootPage } from '$utils/pages';
 	import IconLogout from '~icons/mdi/logout';
 
 	const logout = () => firebaseSignOut().then(() => goto(rootPage));

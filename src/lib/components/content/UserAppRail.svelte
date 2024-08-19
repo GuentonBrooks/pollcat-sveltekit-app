@@ -5,12 +5,12 @@
 	import NavUsersButton from '../buttons/NavUsersButton.svelte';
 	import NavFlagButton from '../buttons/NavFlagButton.svelte';
 	import {
-		adminPage,
+		adminHomePage,
 		adminPollsPage,
 		adminRankingsPage,
 		adminUsersPage,
-		homePage
-	} from '$lib/pages';
+		homePage,
+	} from '$utils/pages';
 	import NavHomeButton from '../buttons/NavHomeButton.svelte';
 </script>
 

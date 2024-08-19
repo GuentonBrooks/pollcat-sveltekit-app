@@ -6,7 +6,7 @@
 
 	import { onMount } from 'svelte';
 	import { firebasePasswordSignUp } from '$lib/firebase/auth';
-	import { authLoginPage, homePage } from '$lib/pages';
+	import { authLoginPage, homePage } from '$utils/pages';
 	import isValidSignupFormat from '$lib/validation/auth/isValidSignupFormat';
 	import { goto } from '$app/navigation';
 

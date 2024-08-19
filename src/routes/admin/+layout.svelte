@@ -1,17 +1,27 @@
-<script>
+<script lang="ts">
 	import AdminAppRail from '$lib/components/content/AdminAppRail.svelte';
 	import AdminBottomNav from '$lib/components/content/AdminBottomNav.svelte';
 	import AdminAppBar from '$lib/components/content/AdminAppBar.svelte';
 	import FlatAlert from '$lib/components/content/FlatAlert.svelte';
 
+	import type { Unsubscriber } from 'svelte/store';
+	import { isDarkModeState } from '$lib/store';
 	import { onDestroy, onMount } from 'svelte';
 	import { AppShell } from '@skeletonlabs/skeleton';
-	import { watchAllPolls } from '$lib/firebase/polls';
 
-	let unWatchPolls = () => {};
+	let unsubDarkMode: Unsubscriber;
 
-	onMount(() => (unWatchPolls = watchAllPolls()));
-	onDestroy(() => unWatchPolls());
+	onMount(() => {
+		unsubDarkMode = isDarkModeState.subscribe((isDarkMode) => {
+			if (isDarkMode) {
+				document.documentElement.classList.add('dark');
+			} else {
+				document.documentElement.classList.remove('dark');
+			}
+		});
+	});
+
+	onDestroy(() => unsubDarkMode());
 </script>
 
 <AppShell>

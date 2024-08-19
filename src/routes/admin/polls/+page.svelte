@@ -1,21 +1,50 @@
 <script lang="ts">
 	import TenColGridContainer from '$lib/components/containers/TenColGridContainer.svelte';
 	import SurfaceContainer from '$lib/components/containers/SurfaceContainer.svelte';
-	import Header from '$lib/components/content/Header.svelte';
 	import SurfaceHeader from '$lib/components/content/SurfaceHeader.svelte';
+	import Header from '$lib/components/content/Header.svelte';
 	import PollItemBox from '$lib/components/content/PollItemBox.svelte';
 	import AddNewButton from '$lib/components/buttons/AddNewButton.svelte';
 
-	import { goto } from '$app/navigation';
-	import { adminPollsAddPage, adminPollsPage } from '$lib/pages';
-	import { allPollState, selectedPollIdState, selectedPollState } from '$lib/store/poll';
+	import type { Unsubscriber } from 'svelte/store';
 	import type { PollFormat } from '$lib/types/poll';
+	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
+	import { onValue } from 'firebase/database';
+	import { adminPollsAddPage, adminPollsPage, authLoginPage } from '$utils/pages';
+	import { allPollState, selectedPollIdState, selectedPollState } from '$lib/store/poll';
+	import { fetchIsFireBaseUserAdmin, getFirebaseUserId } from '$lib/firebase/auth';
+	import { getAllPollQuestionsRef } from '$lib/firebase/polls';
+
+	let unsubPolls: Unsubscriber;
 
 	const onEditPoll = (pollId: string, poll: PollFormat) => {
 		selectedPollIdState.set(pollId);
 		selectedPollState.set(poll);
 		goto(`${adminPollsPage}/${pollId}`);
 	};
+
+	onMount(() => {
+		const userId = getFirebaseUserId();
+		if (!userId) return goto(authLoginPage);
+
+		const pollId = $page.params.pollId;
+		if (!pollId) return goto(adminPollsPage);
+
+		fetchIsFireBaseUserAdmin(userId).then((isAdmin) => {
+			if (!isAdmin) return goto(authLoginPage);
+		});
+
+		unsubPolls = onValue(getAllPollQuestionsRef(pollId), (snapshot) => {
+			if (!snapshot.exists()) return;
+
+			snapshot.forEach((childSnapshot) => {
+				const childData = childSnapshot.val();
+				console.log(childData);
+			});
+		});
+	});
 </script>
 
 <TenColGridContainer>

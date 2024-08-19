@@ -4,7 +4,7 @@
 	import NavPollButton from '../buttons/NavPollButton.svelte';
 	import NavUsersButton from '../buttons/NavUsersButton.svelte';
 	import NavFlagButton from '../buttons/NavFlagButton.svelte';
-	import { adminPage, adminPollsPage, adminRankingsPage, adminUsersPage } from '$lib/pages';
+	import { adminHomePage, adminPollsPage, adminRankingsPage, adminUsersPage } from '$utils/pages';
 	import NavHomeButton from '../buttons/NavHomeButton.svelte';
 </script>
 
@@ -17,7 +17,7 @@
 	border=""
 	class="bg-surface-50 dark:bg-surface-900 w-full rounded-t-3xl"
 >
-	<TabAnchor href={adminPage} selected={$page.url.pathname === adminPage}>
+	<TabAnchor href={adminHomePage} selected={$page.url.pathname === adminHomePage}>
 		<svelte:fragment slot="lead"><NavHomeButton /></svelte:fragment>
 		<span>Home</span>
 	</TabAnchor>

@@ -14,7 +14,6 @@
 	import { page } from '$app/stores';
 	import { editPollQuestionAsync } from '$lib/firebase/polls';
 	import { goto } from '$app/navigation';
-	import { adminPollsQuestionsPage } from '$lib/pages';
 
 	let question: string = '';
 	let isMultipleChoice: boolean = true;
@@ -29,7 +28,7 @@
 		const newQuestion: PollQuestionFormat = {
 			question,
 			isMultipleChoice,
-			answerOptions
+			answerOptions,
 		};
 
 		if (!pollId) return;
@@ -86,7 +85,7 @@
 	{/if}
 
 	<div class="col-span-10 place-self-stretch grid grid-cols-2 place-items-center">
-		<CancelButton on:click={() => goto(adminPollsQuestionsPage)} />
+		<CancelButton on:click={() => {}} />
 		<SubmitButton on:click={sumbitNewQuestion} />
 	</div>
 

@@ -5,7 +5,7 @@
 	import { firebaseSendPasswordResetEmail } from '$lib/firebase/auth';
 
 	import { onMount } from 'svelte';
-	import { authLoginPage } from '$lib/pages';
+	import { authLoginPage } from '$utils/pages';
 	import { alertTextState, alertTypeState } from '$lib/store';
 	import isValidEmailFormat from '$lib/validation/auth/isValidEmailFormat';
 	import { goto } from '$app/navigation';

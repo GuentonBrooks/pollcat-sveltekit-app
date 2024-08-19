@@ -1,9 +1,9 @@
 <script>
-	import { authAdminLoginPage, rootPage } from '$lib/pages';
+	import { authAdminPage } from '$utils/pages';
 	import IconAdmin from '~icons/mdi/shield-account';
 </script>
 
-<a class="btn variant-glass" href={authAdminLoginPage} rel="noreferrer">
+<a class="btn variant-glass" href={authAdminPage} rel="noreferrer">
 	<IconAdmin />
 	<span>Admin</span>
 </a>

@@ -50,7 +50,7 @@ export const editPollByIdAsync = (pollKey: string, poll: PollFormat) => {
 		throw new Error('Failed to edit the Poll could not find the Poll key');
 	}
 
-	update(getPollRef(pollKey), poll)
+	return update(getPollRef(pollKey), poll)
 		.then(() => {
 			alertTypeState.set('success');
 			alertTextState.set(`Polls/DB: Poll Edited Successfully`);
@@ -63,7 +63,7 @@ export const editPollByIdAsync = (pollKey: string, poll: PollFormat) => {
 };
 
 /** FIREBASE - Fetches a poll object by the given PollId */
-export const fetchPollById = (pollKey: string) =>
+export const fetchPollByKey = (pollKey: string) =>
 	get(getPollRef(pollKey))
 		.then((snapshot) => {
 			if (!snapshot.exists()) {

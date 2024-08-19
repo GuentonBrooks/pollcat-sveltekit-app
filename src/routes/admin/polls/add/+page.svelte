@@ -16,7 +16,7 @@
 
 	import { goto } from '$app/navigation';
 	import { createNewPollAsync } from '$lib/firebase/polls';
-	import { adminPollsPage } from '$lib/pages';
+	import { adminPollsPage } from '$utils/pages';
 	import { selectedPollIdState } from '$lib/store/poll';
 	import isValidPollFormat from '$lib/validation/poll/isValidPollFormat';
 	import type { PollFormat, PollDefaultAnswerType, PollType } from '$lib/types/poll';
@@ -37,7 +37,7 @@
 			type,
 			defaultAnswerType,
 			openingDateTime,
-			closingDateTime
+			closingDateTime,
 		};
 		if (!isValidPollFormat(newPoll)) return;
 

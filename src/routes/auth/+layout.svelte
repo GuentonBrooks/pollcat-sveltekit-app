@@ -1,7 +1,6 @@
 <script>
-	import { AppShell, AppBar, LightSwitch } from '@skeletonlabs/skeleton';
+	import { AppShell } from '@skeletonlabs/skeleton';
 
-	import { authAdminLoginPage } from '$lib/pages';
 	import GuentonLogo from '$lib/components/images/GuentonLogo.svelte';
 	import PollCatSvgLarge from '$lib/components/images/PollCatSvgLarge.svelte';
 	import AuthAppBar from '$lib/components/content/AuthAppBar.svelte';

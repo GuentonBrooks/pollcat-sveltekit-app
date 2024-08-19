@@ -1,4 +1,6 @@
 <script lang="ts">
+	import IconQuestions from '~icons/mdi/help-box-multiple';
+
 	import TenColGridContainer from '$lib/components/containers/TenColGridContainer.svelte';
 	import Header from '$lib/components/content/Header.svelte';
 	import SurfaceHeader from '$lib/components/content/SurfaceHeader.svelte';
@@ -15,10 +17,11 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { editPollByIdAsync } from '$lib/firebase/polls';
-	import { adminPollsPage } from '$lib/pages';
+	import { adminPollsPage } from '$utils/pages';
 	import { selectedPollState } from '$lib/store/poll';
 	import isValidPollFormat from '$lib/validation/poll/isValidPollFormat';
 	import type { PollFormat, PollDefaultAnswerType, PollType } from '$lib/types/poll';
+	import PrimaryButton from '$lib/components/buttons/PrimaryButton.svelte';
 
 	let name = $selectedPollState.name;
 	let type: PollType = $selectedPollState.type;
@@ -36,11 +39,19 @@
 			type,
 			defaultAnswerType,
 			openingDateTime,
-			closingDateTime
+			closingDateTime,
 		};
 		if (!isValidPollFormat(editPoll)) return;
 
-		editPollByIdAsync($page.params.pollId, editPoll).catch((error) => console.error(error));
+		editPollByIdAsync($page.params.pollId, editPoll)
+			.then(() => goto(adminPollsPage))
+			.catch(() => {});
+	};
+
+	const gotoPollQuestions = () => {
+		const pollId = $page.params.pollId;
+
+		pollId && goto(`${adminPollsPage}/${pollId}/questions`);
 	};
 </script>
 
@@ -114,8 +125,13 @@
 		</SurfaceContainer>
 	</div>
 
-	<div class="col-span-10 place-self-stretch grid grid-cols-2 place-items-center">
-		<CancelButton on:click={() => goto(adminPollsPage)} />
-		<SubmitButton on:click={submitPollEdit} />
+	<div class="col-span-10">
+		<div class="flex justify-around">
+			<CancelButton on:click={() => goto(adminPollsPage)} />
+			<SubmitButton on:click={submitPollEdit} />
+			<PrimaryButton label="Edit Questions" on:click={gotoPollQuestions}>
+				<IconQuestions />
+			</PrimaryButton>
+		</div>
 	</div>
 </TenColGridContainer>

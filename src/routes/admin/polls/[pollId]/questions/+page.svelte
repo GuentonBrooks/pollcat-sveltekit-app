@@ -1,39 +1,69 @@
 <script lang="ts">
-	import AuthHeader from '$lib/components/content/AuthHeader.svelte';
-	import { selectedPollState } from '$lib/store/poll';
-	import NewQuestionButton from '$lib/components/buttons/NewQuestionButton.svelte';
+	import TenColGridContainer from '$lib/components/containers/TenColGridContainer.svelte';
+	import SurfaceContainer from '$lib/components/containers/SurfaceContainer.svelte';
+	import Header from '$lib/components/content/Header.svelte';
+	import SurfaceHeader from '$lib/components/content/SurfaceHeader.svelte';
+	import PollItemBox from '$lib/components/content/PollItemBox.svelte';
+	import AddNewButton from '$lib/components/buttons/AddNewButton.svelte';
+
+	import type { Unsubscriber } from 'svelte/store';
 	import { page } from '$app/stores';
-	import { createNewPollQuestionAsync } from '$lib/firebase/polls';
-	import type { PollQuestionFormat } from '$lib/types/poll';
+	import { goto } from '$app/navigation';
+	import { adminPollsPage } from '$utils/pages';
+	import { allPollState } from '$lib/store/poll';
+	import { onMount } from 'svelte';
+	import {
+		fetchIsFireBaseUserAdmin,
+		getFirebaseUserId,
+		getFirebaseUserShortInfo,
+	} from '$lib/firebase/auth';
+	import { authLoginPage } from '$utils/pages';
+	import { onValue } from 'firebase/database';
+	import { getAllPollQuestionsRef } from '$lib/firebase/polls';
 
-	let questions = {};
-	selectedPollState.subscribe((state) => (questions = state.questions || {}));
+	let unsubPollQuestions: Unsubscriber;
 
-	const newPollQuestion: PollQuestionFormat = {
-		question: '',
-		isMultipleChoice: true,
-		answerOptions: []
-	};
+	onMount(() => {
+		const userId = getFirebaseUserId();
+		if (!userId) return goto(authLoginPage);
 
-	const createNewQuestion = () =>
-		createNewPollQuestionAsync($page.params.pollId, newPollQuestion).then((qid) =>
-			console.log(qid)
-		);
-	// gotoAdminPollQuestionEditPage($page.params.pollId, qid)
+		const pollId = $page.params.pollId;
+		if (!pollId) return goto(adminPollsPage);
+
+		fetchIsFireBaseUserAdmin(userId).then((isAdmin) => {
+			if (!isAdmin) return goto(authLoginPage);
+		});
+
+		unsubPollQuestions = onValue(getAllPollQuestionsRef(pollId), (snapshot) => {
+			if (!snapshot.exists()) return;
+
+			snapshot.forEach((childSnapshot) => {
+				const childData = childSnapshot.val();
+				console.log(childData);
+			});
+		});
+	});
 </script>
 
-<div class="grid grid-cols-10 my-10 mx-5 gap-10">
-	<div class="col-span-10 md:col-span-6 xl:col-span-8">
-		<AuthHeader label="{$selectedPollState.name} Questions" />
-	</div>
-	<div class="col-span-10 md:col-span-4 xl:col-span-2">
-		<NewQuestionButton on:click={createNewQuestion} />
+<TenColGridContainer>
+	<div class="col-span-10 mb-10">
+		<Header label="Poll Questions" />
 	</div>
 
-	{#each Object.entries(questions) as [qid, question]}
-		<div class="col-span-10">
-			<p>{qid}</p>
-			<h1>{question}</h1>
-		</div>
+	<div class="col-span-10">
+		<SurfaceContainer>
+			<div class="flex items-center">
+				<div class="flex-1">
+					<SurfaceHeader label="Questions" />
+				</div>
+				<div>
+					<AddNewButton on:click={() => {}} />
+				</div>
+			</div>
+		</SurfaceContainer>
+	</div>
+
+	{#each Object.entries($allPollState) as [key, poll]}
+		<div class="col-span-10 md:col-span-5 2xl:col-span-2">test</div>
 	{/each}
-</div>
+</TenColGridContainer>

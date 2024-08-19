@@ -163,8 +163,23 @@ export const fetchFirebaseUserInfo = () =>
 		})
 		.catch((error) => {
 			alertTypeState.set('error');
-			alertTextState.set('Auth/DB: ' + error.message);
+			alertTextState.set('Auth/USER: ' + error.message);
 			throw error;
+		});
+
+/** Fetches the Current User's info from the DB */
+export const fetchIsFireBaseUserAdmin = (uid: string) =>
+	get(child(ref(db), `users/${uid}/isAdmin`))
+		.then((snapshot) => {
+			if (!snapshot.exists()) {
+				return false;
+			}
+			return snapshot.val() as boolean;
+		})
+		.catch((error) => {
+			alertTypeState.set('error');
+			alertTextState.set('Auth/USER: ' + error.message);
+			return false;
 		});
 
 /** Stores the current authenticated user in state */

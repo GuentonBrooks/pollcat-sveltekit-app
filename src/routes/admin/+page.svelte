@@ -7,7 +7,7 @@
 	import AddNewButton from '$lib/components/buttons/AddNewButton.svelte';
 
 	import { goto } from '$app/navigation';
-	import { adminPollsAddPage, adminPollsPage } from '$lib/pages';
+	import { adminPollsAddPage, adminPollsPage } from '$utils/pages';
 	import { allPollState, selectedPollIdState, selectedPollState } from '$lib/store/poll';
 	import type { PollFormat } from '$lib/types/poll';
 

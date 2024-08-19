@@ -6,7 +6,7 @@
 	import { onMount } from 'svelte';
 	import isValidLoginFormat from '$lib/validation/auth/isValidLoginFormat';
 	import { firebasePasswordSignIn } from '$lib/firebase/auth';
-	import { authForgotPage, authSignupPage, homePage } from '$lib/pages';
+	import { authForgotPage, authSignupPage, homePage } from '$utils/pages';
 	import PawButton from '$lib/components/buttons/PawButton.svelte';
 	import { goto } from '$app/navigation';
 

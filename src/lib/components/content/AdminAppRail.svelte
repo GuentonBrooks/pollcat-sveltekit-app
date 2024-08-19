@@ -4,7 +4,7 @@
 	import NavPollButton from '../buttons/NavPollButton.svelte';
 	import NavUsersButton from '../buttons/NavUsersButton.svelte';
 	import NavFlagButton from '../buttons/NavFlagButton.svelte';
-	import { adminPage, adminPollsPage, adminRankingsPage, adminUsersPage } from '$lib/pages';
+	import { adminHomePage, adminPollsPage, adminRankingsPage, adminUsersPage } from '$utils/pages';
 	import NavHomeButton from '../buttons/NavHomeButton.svelte';
 </script>
 
@@ -14,7 +14,7 @@
 	hover="hover:variant-soft-secondary"
 	width="w-24"
 >
-	<AppRailAnchor href={adminPage} selected={$page.url.pathname === adminPage}>
+	<AppRailAnchor href={adminHomePage} selected={$page.url.pathname === adminHomePage}>
 		<svelte:fragment slot="lead"><NavHomeButton /></svelte:fragment>
 		<span>Home</span>
 	</AppRailAnchor>
