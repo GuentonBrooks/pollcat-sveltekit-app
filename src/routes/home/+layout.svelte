@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { AppShell, AppBar, LightSwitch } from '@skeletonlabs/skeleton';
 
 	import PollCatSvgSmall from '$lib/components/images/PollCatSvgSmall.svelte';

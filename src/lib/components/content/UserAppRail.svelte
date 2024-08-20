@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/stores';
 	import { AppRail, AppRailAnchor } from '@skeletonlabs/skeleton';
 	import NavPollButton from '../buttons/NavPollButton.svelte';

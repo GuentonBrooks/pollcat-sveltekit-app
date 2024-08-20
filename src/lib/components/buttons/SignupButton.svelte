@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import IconLoginVariant from '~icons/mdi/login-variant';
 	import PawButton from './PawButton.svelte';

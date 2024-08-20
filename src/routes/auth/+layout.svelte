@@ -1,9 +1,28 @@
-<script>
-	import { AppShell } from '@skeletonlabs/skeleton';
-
+<script lang="ts">
 	import GuentonLogo from '$lib/components/images/GuentonLogo.svelte';
 	import PollCatSvgLarge from '$lib/components/images/PollCatSvgLarge.svelte';
 	import AuthAppBar from '$lib/components/content/AuthAppBar.svelte';
+
+	import type { Unsubscriber } from 'svelte/store';
+	import { AppShell } from '@skeletonlabs/skeleton';
+	import { onDestroy, onMount } from 'svelte';
+	import { isDarkModeState } from '$lib/store';
+
+	let unsubDarkMode: Unsubscriber;
+
+	onMount(() => {
+		unsubDarkMode = isDarkModeState.subscribe((isDarkMode) => {
+			if (isDarkMode) {
+				document.documentElement.classList.add('dark');
+			} else {
+				document.documentElement.classList.remove('dark');
+			}
+		});
+	});
+
+	onDestroy(() => {
+		unsubDarkMode();
+	});
 </script>
 
 <AppShell>

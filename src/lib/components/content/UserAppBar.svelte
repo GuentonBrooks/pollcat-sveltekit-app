@@ -1,13 +1,31 @@
-<script>
-	import { AppBar, LightSwitch } from '@skeletonlabs/skeleton';
-
+<script lang="ts">
+	import IconAdmin from '~icons/mdi/shield-account';
 	import NavMenuButton from '../buttons/NavMenuButton.svelte';
 	import LogoutButton from '../buttons/LogoutButton.svelte';
-
-	import { isDarkModeState, isNavOnState } from '$lib/store';
 	import PollCatSvgSmall from '../images/PollCatSvgSmall.svelte';
+	import GlassButton from '../buttons/GlassButton.svelte';
+
+	import { AppBar, LightSwitch } from '@skeletonlabs/skeleton';
+	import { isDarkModeState, isLoadingState, isNavOnState } from '$lib/store';
+	import { fetchIsFireBaseUserAdmin, getFirebaseUserId } from '$lib/firebase/auth';
+	import { goto } from '$app/navigation';
+	import { adminHomePage, authLoginPage } from '$utils/pages';
 
 	const toggleDarkMode = () => isDarkModeState.set(!$isDarkModeState);
+
+	const checkIfAdminThenRedirect = () => {
+		const userId = getFirebaseUserId();
+		if (!userId) return goto(authLoginPage);
+
+		isLoadingState.set(true);
+		fetchIsFireBaseUserAdmin(userId)
+			.then((isAdmin) => {
+				if (!isAdmin) return;
+				else goto(adminHomePage);
+			})
+			.catch(() => {})
+			.finally(() => isLoadingState.set(false));
+	};
 </script>
 
 <AppBar
@@ -29,6 +47,10 @@
 			fillLight="fill-tertiary-400"
 			on:click={toggleDarkMode}
 		/>
+
+		<GlassButton label="Admin" on:click={checkIfAdminThenRedirect}>
+			<IconAdmin />
+		</GlassButton>
 		<LogoutButton />
 	</svelte:fragment>
 </AppBar>

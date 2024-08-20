@@ -6,7 +6,7 @@ import {
 	PUBLIC_STORAGE_BUCKET,
 	PUBLIC_MESSAGING_SENDER_ID,
 	PUBLIC_APP_ID,
-	PUBLIC_MEASUREMENT_ID
+	PUBLIC_MEASUREMENT_ID,
 } from '$env/static/public';
 
 import { initializeApp } from 'firebase/app';
@@ -20,7 +20,7 @@ const firebaseConfig = {
 	storageBucket: PUBLIC_STORAGE_BUCKET,
 	messagingSenderId: PUBLIC_MESSAGING_SENDER_ID,
 	appId: PUBLIC_APP_ID,
-	measurementId: PUBLIC_MEASUREMENT_ID
+	measurementId: PUBLIC_MEASUREMENT_ID,
 };
 
 /**

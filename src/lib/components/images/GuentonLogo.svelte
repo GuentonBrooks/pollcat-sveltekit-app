@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	let srcLight = '/img/guentonBlack.png';
 	let srcDark = '/img/guentonWhite.png';
 </script>

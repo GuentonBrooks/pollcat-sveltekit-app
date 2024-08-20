@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { authAdminPage } from '$utils/pages';
 	import IconAdmin from '~icons/mdi/shield-account';
 </script>

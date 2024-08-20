@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import IconLockReset from '~icons/mdi/lock-reset';
 	import PawButton from './PawButton.svelte';

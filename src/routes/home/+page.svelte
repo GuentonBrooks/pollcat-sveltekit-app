@@ -1,7 +1,4 @@
-<script>
-
+<script lang="ts">
 </script>
 
-<div class="h-full grid place-content-center">
-	Home
-</div>
+<div class="h-full grid place-content-center">Home</div>

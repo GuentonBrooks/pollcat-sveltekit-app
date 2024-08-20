@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Title from '$lib/components/content/Title.svelte';
 	import PollCatSvgLarge from '$lib/components/images/PollCatSvgLarge.svelte';
 	import PawButton from '$lib/components/buttons/PawButton.svelte';

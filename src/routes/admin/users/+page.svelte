@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import TenColGridContainer from '$lib/components/containers/TenColGridContainer.svelte';
 	import Header from '$lib/components/content/Header.svelte';
 </script>

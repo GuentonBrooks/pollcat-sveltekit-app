@@ -5,10 +5,15 @@
 
 	import { onMount } from 'svelte';
 	import isValidLoginFormat from '$lib/validation/auth/isValidLoginFormat';
-	import { firebasePasswordSignIn } from '$lib/firebase/auth';
+	import {
+		fetchFirebaseUserInfo,
+		firebasePasswordSignIn,
+		storeFirebaseUserAsync,
+	} from '$lib/firebase/auth';
 	import { authForgotPage, authSignupPage, homePage } from '$utils/pages';
 	import PawButton from '$lib/components/buttons/PawButton.svelte';
 	import { goto } from '$app/navigation';
+	import { isLoadingState } from '$lib/store';
 
 	let email = '';
 	let password = '';
@@ -22,9 +27,16 @@
 		const loginFormat = { email, password };
 		if (!isValidLoginFormat(loginFormat)) return;
 
+		isLoadingState.set(true);
 		firebasePasswordSignIn(email, password)
+			.then(() => fetchFirebaseUserInfo())
+			.then((userInfo) => {
+				if (!userInfo) return storeFirebaseUserAsync();
+				else return goto(homePage);
+			})
 			.then(() => goto(homePage))
-			.catch(() => null);
+			.catch(() => {})
+			.finally(() => isLoadingState.set(false));
 	};
 </script>
 

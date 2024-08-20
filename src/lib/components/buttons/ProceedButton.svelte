@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import IconFastForward from '~icons/mdi/fast-forward';
 

@@ -5,10 +5,11 @@
 	import PasswordInput from '$lib/components/inputs/PasswordInput.svelte';
 
 	import { onMount } from 'svelte';
-	import { firebasePasswordSignUp } from '$lib/firebase/auth';
-	import { authLoginPage, homePage } from '$utils/pages';
-	import isValidSignupFormat from '$lib/validation/auth/isValidSignupFormat';
 	import { goto } from '$app/navigation';
+	import { isLoadingState } from '$lib/store';
+	import { authLoginPage, homePage } from '$utils/pages';
+	import { firebasePasswordSignUp } from '$lib/firebase/auth';
+	import isValidSignupFormat from '$lib/validation/auth/isValidSignupFormat';
 
 	let email = '';
 	let password = '';
@@ -24,7 +25,10 @@
 		const signupFormat = { email, password, passwordConfirm };
 		if (!isValidSignupFormat(signupFormat)) return;
 
-		firebasePasswordSignUp(email, password).then(() => goto(homePage).catch(() => null));
+		isLoadingState.set(true);
+		firebasePasswordSignUp(email, password)
+			.then(() => goto(homePage).catch(() => null))
+			.finally(() => isLoadingState.set(false));
 	};
 </script>
 

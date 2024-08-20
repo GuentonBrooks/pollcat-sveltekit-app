@@ -9,6 +9,7 @@
 	import { adminHomePage, authForgotPage, authLoginPage } from '$utils/pages';
 	import isValidLoginFormat from '$lib/validation/auth/isValidLoginFormat';
 	import { goto } from '$app/navigation';
+	import { isLoadingState } from '$lib/store';
 
 	let email = '';
 	let password = '';
@@ -22,9 +23,11 @@
 		const loginFormat = { email, password };
 		if (!isValidLoginFormat(loginFormat)) return;
 
+		isLoadingState.set(true);
 		firebaseAdminSignIn(email, password)
 			.then(() => goto(adminHomePage))
-			.catch(() => null);
+			.catch(() => {})
+			.finally(() => isLoadingState.set(false));
 	};
 </script>
 
@@ -40,7 +43,7 @@
 	</div>
 
 	<div class="w-80">
-		<PasswordInput bind:value={password} bind:ref={passwordRef} on:enter={() => login()} />
+		<PasswordInput bind:value={password} bind:ref={passwordRef} on:enter={login} />
 		<p class="text-sm flex mt-1 mr-3">
 			<span class="flex-1" />
 			<a class="anchor" href={authForgotPage}>Forgot Password?</a>

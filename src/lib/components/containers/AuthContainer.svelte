@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import AuthHeader from '../content/AuthHeader.svelte';
 	import FlatAlert from '../content/FlatAlert.svelte';
 	import FormFooter from '../content/FormFooter.svelte';

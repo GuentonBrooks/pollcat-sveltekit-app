@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import AdminButton from '../buttons/AdminButton.svelte';
 	import GitHubButton from '../buttons/GitHubButton.svelte';
 

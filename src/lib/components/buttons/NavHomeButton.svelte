@@ -1,11 +1,11 @@
-<script>
-	import { createEventDispatcher } from "svelte";
-  import IconHome from "~icons/mdi/home";
+<script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+	import IconHome from '~icons/mdi/home';
 
-  const dispatch = createEventDispatcher();
-  const click = () => dispatch('click');
+	const dispatch = createEventDispatcher();
+	const click = () => dispatch('click');
 </script>
 
 <button type="button" class="btn-icon" on:click={click}>
-  <IconHome />
+	<IconHome />
 </button>

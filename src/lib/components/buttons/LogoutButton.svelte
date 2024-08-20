@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { goto } from '$app/navigation';
 	import { firebaseSignOut } from '$lib/firebase/auth';
 	import { rootPage } from '$utils/pages';

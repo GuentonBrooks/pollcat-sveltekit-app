@@ -1,12 +1,12 @@
-<script>
-	import { createEventDispatcher } from "svelte";
-  import IconPlusBox from "~icons/mdi/plus-box";
+<script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+	import IconPlusBox from '~icons/mdi/plus-box';
 
-  const dispatch = createEventDispatcher();
-  const click = () => dispatch('click');
+	const dispatch = createEventDispatcher();
+	const click = () => dispatch('click');
 </script>
 
 <button type="button" class="btn btn-lg variant-filled-primary w-full" on:click={click}>
-  <IconPlusBox />
-  <span>New Question</span>
+	<IconPlusBox />
+	<span>New Question</span>
 </button>

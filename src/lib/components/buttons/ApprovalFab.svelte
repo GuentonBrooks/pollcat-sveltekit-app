@@ -1,11 +1,11 @@
-<script>
-	import { createEventDispatcher } from "svelte";
-  import IconApproval from "~icons/mdi/file-chart-check";
+<script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+	import IconApproval from '~icons/mdi/file-chart-check';
 
-  const dispatch = createEventDispatcher();
-  const click = () => dispatch('click');
+	const dispatch = createEventDispatcher();
+	const click = () => dispatch('click');
 </script>
 
 <button type="button" class="btn-icon" on:click={click}>
-  <IconApproval />
+	<IconApproval />
 </button>
