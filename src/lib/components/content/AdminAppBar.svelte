@@ -7,7 +7,7 @@
 	import { AppBar, LightSwitch } from '@skeletonlabs/skeleton';
 	import { isDarkModeState, isNavOnState } from '$lib/store';
 	import { goto } from '$app/navigation';
-	import { homePage, userPage } from '$utils/pages';
+	import { homePage } from '$utils/pages';
 	import PollCatSvgSmall from '../images/PollCatSvgSmall.svelte';
 
 	const toggleDarkMode = () => isDarkModeState.set(!$isDarkModeState);

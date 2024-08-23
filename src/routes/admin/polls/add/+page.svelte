@@ -48,6 +48,21 @@
 			})
 			.catch(() => {});
 	};
+
+	const onProceed = () => {
+		const newPoll: PollFormat = {
+			name,
+			type,
+			defaultAnswerType,
+			openingDateTime,
+			closingDateTime,
+		};
+		if (!isValidPollFormat(newPoll)) return;
+
+		createNewPollAsync(newPoll)
+			.then((pollId) => goto(adminPollsPage + `/${pollId}`))
+			.catch(() => {});
+	};
 </script>
 
 <TenColGridContainer>
@@ -123,6 +138,6 @@
 	<FormButtonContainer>
 		<CancelButton on:click={() => goto(adminPollsPage)} />
 		<FinishButton on:click={onFinish} />
-		<ProceedButton on:click={onFinish} />
+		<ProceedButton on:click={onProceed} />
 	</FormButtonContainer>
 </TenColGridContainer>

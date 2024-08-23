@@ -16,6 +16,16 @@ export type PollFormat = {
 	};
 };
 
+/** POLL - Format for Poll Table Rows */
+export type PollTableRowFormat = {
+	pollId: string;
+	name: string;
+	type: PollType;
+	defaultAnswerType: PollDefaultAnswerType;
+	openingDateTime: string;
+	closingDateTime: string;
+};
+
 /** POLL - Format for Firebase Polls Document */
 export type PollsFirebaseFormat = {
 	[key: string]: PollFormat;
@@ -26,4 +36,11 @@ export type PollQuestionFormat = {
 	question: string;
 	isMultipleChoice: boolean;
 	answerOptions?: string[];
+};
+
+/** POLL - Format for Poll Question Table Rows */
+export type PollQuestionTableRowFormat = {
+	questionId: string;
+	question: string;
+	isMultipleChoice: boolean;
 };

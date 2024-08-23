@@ -1,73 +1,96 @@
 <script lang="ts">
-	import TenColGridContainer from '$lib/components/containers/TenColGridContainer.svelte';
+	import PaddedContainer from '$lib/components/containers/PaddedContainer.svelte';
 	import SurfaceContainer from '$lib/components/containers/SurfaceContainer.svelte';
 	import SurfaceHeader from '$lib/components/content/SurfaceHeader.svelte';
 	import Header from '$lib/components/content/Header.svelte';
-	import PollItemBox from '$lib/components/content/PollItemBox.svelte';
 	import AddNewButton from '$lib/components/buttons/AddNewButton.svelte';
 
 	import type { Unsubscriber } from 'svelte/store';
-	import type { PollFormat } from '$lib/types/poll';
-	import { onMount } from 'svelte';
-	import { page } from '$app/stores';
+	import type { PollFormat, PollTableRowFormat } from '$lib/types/poll';
+	import { onDestroy, onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { onValue } from 'firebase/database';
 	import { adminPollsAddPage, adminPollsPage, authLoginPage } from '$utils/pages';
-	import { allPollState, selectedPollIdState, selectedPollState } from '$lib/store/poll';
 	import { fetchIsFireBaseUserAdmin, getFirebaseUserId } from '$lib/firebase/auth';
-	import { getAllPollQuestionsRef } from '$lib/firebase/polls';
+	import { getAllPollsRef } from '$lib/firebase/polls';
+	import { Table, tableMapperValues, type TableSource } from '@skeletonlabs/skeleton';
 
 	let unsubPolls: Unsubscriber;
 
-	const onEditPoll = (pollId: string, poll: PollFormat) => {
-		selectedPollIdState.set(pollId);
-		selectedPollState.set(poll);
-		goto(`${adminPollsPage}/${pollId}`);
-	};
+	let pollTable: PollTableRowFormat[] = [];
+
+	const setPollTableSource = (): TableSource => ({
+		head: ['Name', 'Type', 'Default Answer Type', 'Opening Date', 'Closing Date'],
+		body: tableMapperValues(pollTable, [
+			'name',
+			'type',
+			'defaultAnswerType',
+			'openingDateTime',
+			'closingDateTime',
+		]),
+		meta: tableMapperValues(pollTable, ['pollId']),
+		foot: ['Totals', `<span class="badge variant-soft-primary">${pollTable.length}<span>`],
+	});
+
+	$: pollTableData = pollTable && setPollTableSource();
+
+	const onTableRowSelect = (event: CustomEvent) => goto(`${adminPollsPage}/${event.detail}`);
 
 	onMount(() => {
 		const userId = getFirebaseUserId();
 		if (!userId) return goto(authLoginPage);
 
-		const pollId = $page.params.pollId;
-		if (!pollId) return goto(adminPollsPage);
-
 		fetchIsFireBaseUserAdmin(userId).then((isAdmin) => {
 			if (!isAdmin) return goto(authLoginPage);
 		});
 
-		unsubPolls = onValue(getAllPollQuestionsRef(pollId), (snapshot) => {
+		unsubPolls = onValue(getAllPollsRef(), (snapshot) => {
 			if (!snapshot.exists()) return;
 
+			const list: PollTableRowFormat[] = [];
+
 			snapshot.forEach((childSnapshot) => {
-				const childData = childSnapshot.val();
-				console.log(childData);
+				const childData = childSnapshot.val() as PollFormat;
+				const row: PollTableRowFormat = {
+					pollId: childSnapshot.key,
+					name: childData.name,
+					type: childData.type,
+					defaultAnswerType: childData.defaultAnswerType,
+					openingDateTime: childData.openingDateTime,
+					closingDateTime: childData.closingDateTime,
+				};
+				list.push(row);
 			});
+
+			pollTable = list;
 		});
+	});
+
+	onDestroy(() => {
+		if (unsubPolls) unsubPolls();
 	});
 </script>
 
-<TenColGridContainer>
-	<div class="col-span-10 mb-10">
-		<Header label="Polls" />
-	</div>
+<PaddedContainer>
+	<Header label="Polls" />
 
-	<div class="col-span-10">
-		<SurfaceContainer>
-			<div class="flex items-center">
-				<div class="flex-1">
-					<SurfaceHeader label="Polls" />
-				</div>
-				<div>
-					<AddNewButton on:click={() => goto(adminPollsAddPage)} />
-				</div>
+	<br />
+
+	<SurfaceContainer>
+		<div class="flex items-center">
+			<div class="flex-1">
+				<SurfaceHeader label="Polls" />
 			</div>
-		</SurfaceContainer>
-	</div>
-
-	{#each Object.entries($allPollState) as [key, poll]}
-		<div class="col-span-10 md:col-span-5 2xl:col-span-2">
-			<PollItemBox {poll} on:edit={() => onEditPoll(key, poll)} />
+			<div>
+				<AddNewButton on:click={() => goto(adminPollsAddPage)} />
+			</div>
 		</div>
-	{/each}
-</TenColGridContainer>
+	</SurfaceContainer>
+
+	<br />
+
+	<SurfaceContainer>
+		<SurfaceHeader label="Totals" />
+		<Table interactive source={pollTableData} on:selected={onTableRowSelect} />
+	</SurfaceContainer>
+</PaddedContainer>

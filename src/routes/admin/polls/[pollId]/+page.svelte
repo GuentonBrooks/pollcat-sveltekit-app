@@ -13,25 +13,96 @@
 	import PollDefaultAnswerTypeDescription from '$lib/components/content/PollDefaultAnswerTypeDescription.svelte';
 	import CancelButton from '$lib/components/buttons/CancelButton.svelte';
 	import SubmitButton from '$lib/components/buttons/SubmitButton.svelte';
-
-	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
-	import { editPollByIdAsync } from '$lib/firebase/polls';
-	import { adminPollsPage } from '$utils/pages';
-	import { selectedPollState } from '$lib/store/poll';
-	import isValidPollFormat from '$lib/validation/poll/isValidPollFormat';
-	import type { PollFormat, PollDefaultAnswerType, PollType } from '$lib/types/poll';
 	import PrimaryButton from '$lib/components/buttons/PrimaryButton.svelte';
 
-	let name = $selectedPollState.name;
-	let type: PollType = $selectedPollState.type;
-	let defaultAnswerType: PollDefaultAnswerType = $selectedPollState.defaultAnswerType;
-	let openingDateTime = $selectedPollState.openingDateTime;
-	let closingDateTime = $selectedPollState.closingDateTime;
+	import type {
+		PollFormat,
+		PollDefaultAnswerType,
+		PollType,
+		PollQuestionFormat,
+		PollQuestionTableRowFormat,
+	} from '$lib/types/poll';
+	import type { Unsubscriber } from 'svelte/store';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	import { onDestroy, onMount } from 'svelte';
+	import { onValue } from 'firebase/database';
+	import { adminPollsPage, authLoginPage } from '$utils/pages';
+	import { editPollByIdAsync, getAllPollQuestionsRef, getPollRef } from '$lib/firebase/polls';
+	import { fetchIsFireBaseUserAdmin, getFirebaseUserId } from '$lib/firebase/auth';
+	import { Table, tableMapperValues, type TableSource } from '@skeletonlabs/skeleton';
+	import isValidPollFormat from '$lib/validation/poll/isValidPollFormat';
+
+	const pollId = $page.params.pollId;
+
+	let unsubPolls: Unsubscriber;
+	let unsubPollQuestions: Unsubscriber;
+
+	let name: string = '';
+	let type: PollType = 'vote';
+	let defaultAnswerType: PollDefaultAnswerType = 'employee';
+	let openingDateTime: string = '';
+	let closingDateTime: string = '';
+
+	let PollQuestionTable: PollQuestionTableRowFormat[] = [];
 
 	let nameRef: HTMLInputElement;
 	let openingDateTimeRef: HTMLInputElement;
 	let closingDateTimeRef: HTMLInputElement;
+
+	const setPollQuestionTableSource = (): TableSource => ({
+		head: ['Question', 'Is Multiple Choice'],
+		body: tableMapperValues(PollQuestionTable, ['question', 'isMultipleChoice']),
+		meta: tableMapperValues(PollQuestionTable, ['questionId']),
+		foot: ['Totals', `<span class="badge variant-soft-primary">${PollQuestionTable.length}<span>`],
+	});
+
+	$: PollQuestionTableData = PollQuestionTable && setPollQuestionTableSource();
+
+	const onTableRowSelect = (event: CustomEvent) => goto(`${adminPollsPage}/${event.detail}`);
+
+	onMount(() => {
+		const userId = getFirebaseUserId();
+		if (!userId) return goto(authLoginPage);
+		if (!pollId) return goto(adminPollsPage);
+
+		fetchIsFireBaseUserAdmin(userId).then((isAdmin) => {
+			if (!isAdmin) return goto(authLoginPage);
+		});
+
+		unsubPolls = onValue(getPollRef(pollId), (snapshot) => {
+			if (!snapshot.exists()) return;
+
+			const data = snapshot.val() as PollFormat;
+			name = data.name;
+			type = data.type;
+			defaultAnswerType = data.defaultAnswerType;
+			openingDateTime = data.openingDateTime;
+			closingDateTime = data.closingDateTime;
+		});
+
+		unsubPollQuestions = onValue(getAllPollQuestionsRef(pollId), (snapshot) => {
+			if (!snapshot.exists()) return;
+
+			const list: PollQuestionTableRowFormat[] = [];
+
+			snapshot.forEach((childSnapshot) => {
+				const childData = childSnapshot.val() as PollQuestionFormat;
+				const row: PollQuestionTableRowFormat = {
+					questionId: childSnapshot.key,
+					question: childData.question,
+					isMultipleChoice: childData.isMultipleChoice,
+				};
+
+				list.push(row);
+			});
+		});
+	});
+
+	onDestroy(() => {
+		if (unsubPolls) unsubPolls();
+		if (unsubPollQuestions) unsubPollQuestions();
+	});
 
 	const submitPollEdit = () => {
 		const editPoll: PollFormat = {
@@ -122,6 +193,13 @@
 				placeholder="Closing Date"
 				name="closingDate"
 			/>
+		</SurfaceContainer>
+	</div>
+
+	<div class="col-span-10">
+		<SurfaceContainer>
+			<SurfaceHeader label="Poll Questions" />
+			<Table interactive source={PollQuestionTableData} on:selected={onTableRowSelect} />
 		</SurfaceContainer>
 	</div>
 
